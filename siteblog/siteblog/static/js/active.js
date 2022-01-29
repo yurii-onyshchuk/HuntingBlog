@@ -1,26 +1,4 @@
 $(document).ready(function () {
-//    $('.my-slider').unslider({
-//        animation: 'vertical',
-//        autoplay: true,
-//        infinite: true
-//    });
-//
-//
-//    $('.our-client-carousal').owlCarousel({
-//        items: 1,
-//        loop: true,
-//        autoplay: true,
-//        autoplayTimeout: 5000,
-//        margin: 10,
-//        nav: true,
-//        navText: [
-//        "<i class=\"fa fa-angle-left\" aria-hidden=\"true\"></i>",
-//        "<i class=\"fa fa-angle-right\" aria-hidden=\"true\"></i>"],
-//    });
-     var $grid = $('.grid').isotope({
-//        itemSelector: '.portfolio-item',
-        layoutMode: 'fitRows'
-    });
     var filterFns = {
         numberGreaterThan50: function () {
             var number = $(this).find('.number').text();
