@@ -30,7 +30,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title',)
     list_filter = ('category', 'author', )
     search_fields = ('title',)
-    fields = ('title', 'slug', 'author', 'category', 'tags', 'content', 'get_photo', 'views', 'created_at',)
+    fields = ('title', 'slug', 'author', 'category', 'tags', 'content', 'photo', 'get_photo', 'views', 'created_at',)
     readonly_fields = ('created_at', 'views', 'get_photo',)
 
     def get_photo(self, obj):
@@ -38,7 +38,7 @@ class PostAdmin(admin.ModelAdmin):
             return mark_safe(f'<a href="{obj.photo.url}"><img src="{obj.photo.url}" width="80"></a>')
         return '-'
 
-    get_photo.short_description = 'Фото'
+    get_photo.short_description = 'Мініатюра'
 
 
 admin.site.register(Category, CategoryAdmin)
