@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% load post %}
+
+{% block title %} {{title}} :: {{ block.super }} {% endblock %}
 
 {% block content %}
 <section class="bg-text-area">
@@ -23,7 +24,41 @@
     <div class="container">
         <div class="row">
             <div class="blog-post-area-style">
-                {% show_post %}
+                <div class="col-md-12">
+                    <div class="single-post-big">
+                        <div class="big-image">
+                            <img src="{% static 'img/post-image1.jpg' %}" alt="">
+                        </div>
+                        <div class="big-text">
+                            <h3><a href="#">Post Title Goes Here.</a></h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                            <h4><span class="date">25 February 2017</span><span class="author">Posted By: <span
+                                    class="author-name">Kabbo Liate</span></span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                {% for item in posts %}
+                <div class="col-md-3">
+                    <div class="single-post">
+                        {% if item.photo %}
+                        <img src="{{item.photo.url}}" alt={{post.title}}>
+                        {% else %}
+                        <img src="" alt={{post.title}}>
+                        {% endif %}
+                        <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
+                        <h4><span>Posted By: <span class="author-name">{{item.author}}</span></span>
+                        </h4>
+                        <p>{{item.content | truncatewords_html:20 | safe}}</p>
+                        <h4><span>{{item.created_at}}</span></h4>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
