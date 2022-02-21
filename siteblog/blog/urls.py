@@ -19,5 +19,6 @@ from . import views
 urlpatterns = [
     path('', views.Home.as_view(), name='home'),
     path('category/<str:slug>', views.PostsByCategory.as_view(), name='category'),
-    path('post/<str:slug>', views.get_post, name='post')
+    path('tag/<str:slug>', views.PostsByTag.as_view(), name='tag'),
+    path('post/<str:slug>', views.SinglePost.as_view(), name='post')
 ]

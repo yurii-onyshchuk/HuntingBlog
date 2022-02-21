@@ -5,21 +5,6 @@
 {% block title %} {{title}} :: {{ block.super }} {% endblock %}
 
 {% block content %}
-<section class="bg-text-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="bg-text">
-                    <h3>Classic BLOG Design</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <section class="blog-post-area">
     <div class="container">
         <div class="row">
@@ -27,18 +12,13 @@
                 <div class="col-md-12">
                     <div class="single-post-big">
                         <div class="big-image">
-                            <img src="{% static 'img/post-image1.jpg' %}" alt="">
+                            <img src="{{random_post.photo.url}}" alt="{{random_post.title}}">
                         </div>
                         <div class="big-text">
-                            <h3><a href="#">Post Title Goes Here.</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                            <h4><span class="date">25 February 2017</span><span class="author">Posted By: <span
-                                    class="author-name">Kabbo Liate</span></span>
+                            <h3><a href="{{random_post.get_absolute_url}}">{{random_post.title}}</a></h3>
+                            <p>{{random_post.content | truncatewords_html:60 | safe}}</p>
+                            <h4><span class="date">{{random_post.created_at|date:'d.m.Y'}}</span><span class="author">Posted By: <span
+                                    class="author-name">{{random_post.author}}</span></span>
                             </h4>
                         </div>
                     </div>
@@ -55,7 +35,7 @@
                         <h4><span>Posted By: <span class="author-name">{{item.author}}</span></span>
                         </h4>
                         <p>{{item.content | truncatewords_html:20 | safe}}</p>
-                        <h4><span>{{item.created_at}}</span></h4>
+                        <h4><span>{{item.created_at|date:'d.m.Y'}}</span></h4>
                     </div>
                 </div>
                 {% endfor %}
