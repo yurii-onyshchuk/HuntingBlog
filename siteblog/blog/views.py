@@ -52,7 +52,7 @@ class PostsByTag(ListView):
 
 class SinglePost(DetailView):
     model = Post
-    template_name = 'blog/post.html'
+    template_name = 'blog/single.html'
     context_object_name = 'post'
 
     def get_context_data(self, *, object_list=None, **kwargs):

@@ -21,7 +21,7 @@
                                         </span>
                                         <br>
                                         {% if post.tags.exists %}
-                                        <span >Теги:
+                                        <span>Теги:
                                         {% for tag in post.tags.all %}
                                             <a href="{{tag.get_absolute_url}}">{{tag.title}}</a>
                                         {% endfor %}
@@ -133,59 +133,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="button-group filters-button-group">
-                            <button data-filter=".recent" class="button is-checked">Recent</button>
-                            <button data-filter=".popular" class="button">popular</button>
-                            <button data-filter=".users" class="button">Users</button>
-                        </div>
-
-                        <div class="grid" style="position: relative; height: 1221.93px;">
-                            <div class="portfolio-item recent" style="position: absolute; left: 0px; top: 0px;">
-                                <img src="{% static 'img/portfolio1.jpg' %}" alt="">
-                                <div class="portfolio-text">
-                                    <h5><a href="#">Pay Close Attention To People Who Don’t Clap When You Win
-                                        recent1.</a></h5>
-                                    <p>By Kabbo Liate <span>|</span>25 February 2017</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tags">
-                            <h2 class="sidebar-title">Tags</h2>
-                            <p><a href="#">Adventure</a></p>
-                            <p><a href="#">Animals</a></p>
-                            <p><a href="#">Asia</a></p>
-                            <p><a href="#">Beauty</a></p>
-                            <p><a href="#">Canada</a></p>
-                            <p><a href="#">Celebration</a></p>
-                            <p><a href="#">City</a></p>
-                            <p><a href="#">Coffee</a></p>
-                            <p><a href="#">Constructions</a></p>
-                            <p><a href="#">Europe</a></p>
-                            <p><a href="#">Adventure</a></p>
-                            <p><a href="#">Animals</a></p>
-                            <p><a href="#">Asia</a></p>
-                            <p><a href="#">Beauty</a></p>
-                            <p><a href="#">Canada</a></p>
-                            <p><a href="#">Celebration</a></p>
-                            <p><a href="#">City</a></p>
-                            <p><a href="#">Coffee</a></p>
-                            <p><a href="#">Constructions</a></p>
-                            <p><a href="#">Europe</a></p>
-                            <p><a href="#">Adventure</a></p>
-                            <p><a href="#">Animals</a></p>
-                            <p><a href="#">Asia</a></p>
-                            <p><a href="#">Beauty</a></p>
-                            <p><a href="#">Canada</a></p>
-                        </div>
-                        <div class="newsletter">
-                            <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
-                            <form action="#" method="post">
-                                <input type="email" name="" id="" placeholder="Email">
-                                <input type="submit" value="Subscribe">
-                            </form>
-                        </div>
-                    </div>
+                    {% include 'blog/inc/_sidebar.html' %}
                 </div>
             </div>
         </div>
