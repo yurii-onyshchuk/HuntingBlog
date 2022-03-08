@@ -4,31 +4,10 @@
     {% show_posts_list 6 %}
     <div class="tags">
         <h2 class="sidebar-title">Tags</h2>
-        <p><a href="#">Adventure</a></p>
-        <p><a href="#">Animals</a></p>
-        <p><a href="#">Asia</a></p>
-        <p><a href="#">Beauty</a></p>
-        <p><a href="#">Canada</a></p>
-        <p><a href="#">Celebration</a></p>
-        <p><a href="#">City</a></p>
-        <p><a href="#">Coffee</a></p>
-        <p><a href="#">Constructions</a></p>
-        <p><a href="#">Europe</a></p>
-        <p><a href="#">Adventure</a></p>
-        <p><a href="#">Animals</a></p>
-        <p><a href="#">Asia</a></p>
-        <p><a href="#">Beauty</a></p>
-        <p><a href="#">Canada</a></p>
-        <p><a href="#">Celebration</a></p>
-        <p><a href="#">City</a></p>
-        <p><a href="#">Coffee</a></p>
-        <p><a href="#">Constructions</a></p>
-        <p><a href="#">Europe</a></p>
-        <p><a href="#">Adventure</a></p>
-        <p><a href="#">Animals</a></p>
-        <p><a href="#">Asia</a></p>
-        <p><a href="#">Beauty</a></p>
-        <p><a href="#">Canada</a></p>
+        {% show_tag_list as tags %}
+        {% for tag in tags %}
+        <p><a href="{{tag.get_absolute_url}}">{{ tag.title }}</a></p>
+        {% endfor %}
     </div>
     <div class="newsletter">
         <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
