@@ -30,8 +30,10 @@
                                         {% endif %}
                                         <span>Перегляди: {{post.views}}</span>
                                     </div>
+                                    {% if post.photo %}
                                     <br>
                                     <img src="{{ post.photo.url }}" alt="">
+                                    {% endif %}
                                     {{post.content|safe}}
                                 </div>
                             </div>

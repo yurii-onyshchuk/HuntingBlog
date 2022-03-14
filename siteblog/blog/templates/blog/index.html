@@ -11,13 +11,15 @@
             <div class="blog-post-area-style">
                 <div class="col-md-12">
                     <div class="single-post-big">
+                        {% if random_post.photo %}
                         <div class="big-image">
                             <img src="{{random_post.photo.url}}" alt="{{random_post.title}}">
                         </div>
+                        {% endif %}
                         <div class="big-text">
                             <h3><a href="{{random_post.get_absolute_url}}">{{random_post.title}}</a></h3>
                             <p>{{random_post.content | truncatewords_html:60 | safe}}</p>
-                            <h4><span class="date">{{random_post.created_at|date:'d.m.Y'}}</span><span class="author">Posted By: <span
+                            <h4><span class="date">{{random_post.created_at|date:'d.m.Y'}}</span><span class="author">Автор: <span
                                     class="author-name">{{random_post.author}}</span></span>
                             </h4>
                         </div>
@@ -32,7 +34,7 @@
                         <img src="" alt={{post.title}}>
                         {% endif %}
                         <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
-                        <h4><span>Posted By: <span class="author-name">{{item.author}}</span></span>
+                        <h4><span >Автор: <span class="author-name">{{item.author}}</span></span>
                         </h4>
                         <p>{{item.content | truncatewords_html:20 | safe}}</p>
                         <h4><span>{{item.created_at|date:'d.m.Y'}}</span></h4>

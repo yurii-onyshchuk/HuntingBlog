@@ -1,8 +1,8 @@
 <div class="grid">
     <div class="button-group filters-button-group">
-        <button data-filter=".popular" class="button is-checked">Popular</button>
-        <button data-filter=".recent" class="button">Recent</button>
-        <button data-filter=".users" class="button">Users</button>
+        <button data-filter=".popular" class="button is-checked">Популярні</button>
+        <button data-filter=".recent" class="button">Нещодані</button>
+        <button data-filter=".users" class="button">Автор</button>
     </div>
     {% for post in posts %}
     <div class="portfolio-item recent">
@@ -13,7 +13,7 @@
         {% endif %}
         <div class="portfolio-text">
             <h5><a href="{{post.get_absolute_url}}">{{post.title}}</a></h5>
-            <p>By {{post.author }}<span>|</span>{{post.created_at|date:'d.m.Y'}}</p>
+            <p>{{post.author }}<span>|</span>{{post.created_at|date:'d.m.Y'}}</p>
         </div>
     </div>
     {% endfor %}

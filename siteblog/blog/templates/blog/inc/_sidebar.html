@@ -2,22 +2,21 @@
 
 <div class="col-md-4">
     <div class="newsletter">
-        <h2 class="sidebar-title">Searching of post</h2>
         <form action="{% url 'search' %}" method="get">
-            <input type="text" name="s" placeholder="key word...">
-            <input type="submit" value="Search">
+            <input type="text" name="s" placeholder="Введіть пошуковий запит...">
+            <input type="submit" value="Пошук">
         </form>
     </div>
-    {% show_posts_list 6 %}
+    {% show_posts_list 5 %}
     <div class="tags">
-        <h2 class="sidebar-title">Tags</h2>
+        <h2 class="sidebar-title">Пошук за тегами</h2>
         {% show_tag_list as tags %}
         {% for tag in tags %}
         <p><a href="{{tag.get_absolute_url}}">{{ tag.title }}</a></p>
         {% endfor %}
     </div>
     <div class="newsletter">
-        <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
+        <h2 class="sidebar-title">Підписка на розсилку</h2>
         <form action="#" method="post">
             <input type="email" name="" id="" placeholder="Email">
             <input type="submit" value="Subscribe">
