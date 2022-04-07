@@ -4,5 +4,8 @@
         {% for item in categories %}
         <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
         {% endfor %}
+        {% if menu_class == 'footer-menu' %}
+        <li><a href="{% url 'about' %}">Про нас</a></li>
+        {% endif %}
     </ul>
 </div>

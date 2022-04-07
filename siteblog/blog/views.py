@@ -78,3 +78,7 @@ class Search(ListView):
         context['s'] = f"s={self.request.GET.get('s')}&"
         context['title'] = 'Результати пошуку'
         return context
+
+
+def about(request):
+    return render(request, 'blog/about.html')
