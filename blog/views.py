@@ -10,7 +10,7 @@ class Home(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'posts'
-    paginate_by = 4
+    paginate_by = 8
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -22,7 +22,7 @@ class Home(ListView):
 class PostsByCategory(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'posts'
-    paginate_by = 4
+    paginate_by = 8
     allow_empty = False
 
     def get_queryset(self):
@@ -38,7 +38,7 @@ class PostsByCategory(ListView):
 class PostsByTag(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'posts'
-    paginate_by = 4
+    paginate_by = 8
     allow_empty = False
 
     def get_queryset(self):
@@ -53,7 +53,7 @@ class PostsByTag(ListView):
 
 class SinglePost(DetailView):
     model = Post
-    template_name = 'blog/single.html'
+    template_name = 'blog/post-detail.html'
     context_object_name = 'post'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -68,7 +68,7 @@ class SinglePost(DetailView):
 class Search(ListView):
     template_name = 'blog/search.html'
     context_object_name = 'posts'
-    paginate_by = 4
+    paginate_by = 8
 
     def get_queryset(self):
         return Post.objects.filter(title__icontains=self.request.GET.get('s'))
@@ -80,5 +80,6 @@ class Search(ListView):
         return context
 
 
-def about(request):
-    return render(request, 'blog/about.html')
+def contact(request):
+    context = {'title': 'Контактна інформація'}
+    return render(request, 'blog/about.html', context)

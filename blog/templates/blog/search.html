@@ -2,34 +2,34 @@
 
 {% load static %}
 
-{% block title %} {{title}} :: {{ block.super }} {% endblock %}
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %}
 
 {% block content %}
-<section class="blog-post-area">
-    <div class="container">
-        <div class="row">
-            <div class="blog-post-area-style">
-                {% for item in posts %}
-                <div class="col-md-3">
-                    <div class="single-post">
-                        {% if item.photo %}
-                        <img src="{{item.photo.url}}" alt={{post.title}}>
-                        {% else %}
-                        <img src="" alt={{post.title}}>
-                        {% endif %}
-                        <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
-                        <h4><span>Posted By: <span class="author-name">{{item.author}}</span></span>
-                        </h4>
-                        <p>{{item.content | truncatewords_html:20 | safe}}</p>
-                        <h4><span>{{item.created_at|date:'d.m.Y'}}</span></h4>
-                    </div>
+    <section class="blog-post-area">
+        <div class="container">
+            <div class="row">
+                <div class="blog-post-area-style">
+                    {% for item in posts %}
+                        <div class="col-md-3">
+                            <div class="single-post">
+                                {% if item.photo %}
+                                    <img src="{{ item.photo.url }}" alt={{ post.title }}>
+                                {% else %}
+                                    <img src="" alt={{ post.title }}>
+                                {% endif %}
+                                <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                                <h4><span>Posted By: <span class="author-name">{{ item.author }}</span></span>
+                                </h4>
+                                <p>{{ item.content | truncatewords_html:20 | safe }}</p>
+                                <h4><span>{{ item.created_at|date:'d.m.Y' }}</span></h4>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <h5 class="text-center ps-0 my-5">За даним запитом нічного не знайдено...</h5>
+                    {% endfor %}
                 </div>
-                {% empty %}
-                <p>За даним запитом нічного не знайдено...</p>
-                {% endfor %}
             </div>
         </div>
-    </div>
-    {% include 'blog/inc/_pagination.html' %}
-</section>
+        {% include 'inc/_pagination.html' %}
+    </section>
 {% endblock %}

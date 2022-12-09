@@ -1,22 +1,38 @@
-{% load menu %}
-<footer class="footer">
+{% load sidebar %}
+
+<footer class="mt-auto footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="footer-bg">
-                    <div class="row">
-                        <div class="col-md-9">
-                            {% show_menu 'footer-menu' %}
-                        </div>
-                        <div class="col-md-3">
-                            <div class="footer-icon">
-                                <p><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a><a href="#"><i
-                                        class="fa fa-twitter" aria-hidden="true"></i></a><a href="#"><i
-                                        class="fa fa-linkedin" aria-hidden="true"></i></a><a href="#"><i
-                                        class="fa fa-dribbble" aria-hidden="true"></i></a></p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-lg-9">
+                <div class="footer-menu text-center">
+                    <ul class="ps-0 mt-5 mb-2">
+                        <li><a href="{% url 'home' %}">Головна</a></li>
+                        {% get_categories as categories %}
+                        {% for item in categories %}
+                            <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-social text-center">
+                    <ul class="ps-0 mb-5 mt-lg-5">
+                        <li><a href="{% url 'contact' %}" title="Контактна інформація">
+                            <i class="fa-solid fa-address-card"></i></a>
+                        </li>
+                        <li><a href="https://www.facebook.com/yura.onyshchuk96" target="_blank">
+                            <i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        </li>
+                        <li><a href="https://twitter.com/yurii_onyshchuk" target="_blank">
+                            <i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        </li>
+                        <li><a href="https://www.linkedin.com/in/yurii-onyshchuk-242549153/" target="_blank">
+                            <i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        </li>
+                        <li><a href="https://www.instagram.com/yura.onyshchuk/" target="_blank">
+                            <i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

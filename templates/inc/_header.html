@@ -1,15 +1,66 @@
-{% load menu %}
-<header class="header">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="logo">
-                    <h2><a href="{% url 'home' %}">Ні пуху, ні пера!</a></h2>
+{% load static %}
+{% load sidebar %}
+
+<header>
+    <div class="topbar container-fluid sticky-top bg-dark text-bg-dark text-end">
+        <div class="container">
+            {% if user.is_authenticated %}
+                <div class="user py-2">
+                    <div class="dropdown">
+                        <a class="user-link" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa-regular fa-user py-1"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <h6 class="dropdown-header font">{{ user.first_name }} {{ user.last_name }}</h6>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'personal_cabinet' %}">Особистий
+                                кабінет</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}?next={{ request.path }}">
+                                Вийти з акаунту </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-9">
-                {% show_menu 'menu' %}
-            </div>
+            {% else %}
+                <div class="button-group py-2">
+                    <a class="login" href="{% url 'login' %}?next={{ request.path }}"> Вхід </a>
+                    <a class="register me-0" href="{% url 'register' %}?next={{ request.path }}"> Реєстрація </a>
+                </div>
+            {% endif %}
         </div>
     </div>
+    <nav class="navbar navbar-expand-lg bg-light py-lg-0" aria-label="Offcanvas navbar large">
+        <div class="container">
+            <div class="site-logo">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img class="post-photo" src="{% static 'img/favicon.ico' %}" height="60px" alt="">
+                    <span>Ні пуху, ні пера!</span>
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
+                    aria-controls="offcanvasNavbar2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasNavbar2"
+                 aria-labelledby="offcanvasNavbar2Label">
+                <div class="offcanvas-header justify-content-end">
+                    <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body ms-0 ms-lg-5">
+                    <div class="menu">
+                        <ul class="navbar-nav border-bottom">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Головна</a></li>
+                            {% get_categories as categories %}
+                            {% for item in categories %}
+                                <li class="nav-item"><a class="nav-link"
+                                                        href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 </header>

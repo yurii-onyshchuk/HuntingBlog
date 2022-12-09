@@ -1,20 +1,40 @@
+<div class="button-group filters-button-group pb-3">
+    <button data-filter=".popular" class="button is-checked">Популярні</button>
+    <button data-filter=".recent" class="button">Нещодані</button>
+</div>
 <div class="grid">
-    <div class="button-group filters-button-group">
-        <button data-filter=".popular" class="button is-checked">Популярні</button>
-        <button data-filter=".recent" class="button">Нещодані</button>
-        <button data-filter=".users" class="button">Автор</button>
-    </div>
-    {% for post in posts %}
-    <div class="portfolio-item recent">
-        {% if post.photo %}
-        <img src="{{post.photo.url}}" alt="{{post.title}}">
-        {% else %}
-        <img src="" alt={{post.title}}>
-        {% endif %}
-        <div class="portfolio-text">
-            <h5><a href="{{post.get_absolute_url}}">{{post.title}}</a></h5>
-            <p>{{post.author }}<span>|</span>{{post.created_at|date:'d.m.Y'}}</p>
+    {% for post in popular_posts %}
+        <div class="portfolio-item popular">
+            <a href="{{ post.get_absolute_url }}">
+                {% if post.photo %}
+                    <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+                {% else %}
+                    <img src="" alt="">
+                {% endif %}
+            </a>
+            <div class="portfolio-text">
+                <h5 class="m-0"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+                <p class="mb-0">
+                    <i class="fa fa-eye me-2"></i>{{ post.views }}<br>
+                    <i class="fa fa-calendar-alt me-2"></i>{{ post.created_at|date:'d.m.Y' }}
+                </p>
+            </div>
         </div>
-    </div>
+    {% endfor %}
+    {% for post in recent_posts %}
+        <div class="portfolio-item recent">
+            {% if post.photo %}
+                <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+            {% else %}
+                <img src="" alt="">
+            {% endif %}
+            <div class="portfolio-text">
+                <h5 class="m-0"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+                <p class="mb-0">
+                    <i class="fa fa-calendar-alt me-2"></i>{{ post.created_at|date:'d.m.Y' }}<br>
+                    <i class="fa fa-eye me-2"></i>{{ post.views }}
+                </p>
+            </div>
+        </div>
     {% endfor %}
 </div>

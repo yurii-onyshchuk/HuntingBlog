@@ -1,16 +1,29 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %}
 
-<div class="container" style="min-height: 100%; display: grid; grid-template-rows: auto 1fr auto">
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Про нас</h2>
-        </div>
-        <div class="col-md-12">
-            <p>Електронна пошта: yura.onyshchuk@gmail.com</p>
-            <p>Телефон: +380976011377</p>
+{% block content %}
+    <div class="container contact">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2>{{ title }}</h2>
+            </div>
+            <div class="col-12">
+                <ul>
+                    <li class="list-group-item mb-2">
+                        <a href="tel:+380976011377">
+                            <i class="fa fa-phone pe-1" aria-hidden="true"></i>
+                            <span>+38 097 601 13 77</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item mb-2">
+                        <a href="mailto:yura.onyshchuk@gmail.com">
+                            <i class="fa fa-envelope pe-1" aria-hidden="true"></i>
+                            <span>yura.onyshchuk@gmail.com</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

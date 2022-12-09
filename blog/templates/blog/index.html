@@ -2,50 +2,89 @@
 
 {% load static %}
 
-{% block title %} {{title}} :: {{ block.super }} {% endblock %}
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %}
 
 {% block content %}
-<section class="blog-post-area">
-    <div class="container">
-        <div class="row">
-            <div class="blog-post-area-style">
-                <div class="col-md-12">
-                    <div class="single-post-big">
-                        {% if random_post.photo %}
-                        <div class="big-image">
-                            <img src="{{random_post.photo.url}}" alt="{{random_post.title}}">
+    <section class="blog-post-area">
+        <div class="container">
+            <div class="row big-post mb-3">
+                <div class="col-lg-6">
+                    {% if random_post.photo %}
+                        <div class="big-image mb-2">
+                            <a href="{{ random_post.get_absolute_url }}">
+                                <img src="{{ random_post.photo.url }}" alt="{{ random_post.title }}">
+                            </a>
                         </div>
-                        {% endif %}
-                        <div class="big-text">
-                            <h3><a href="{{random_post.get_absolute_url}}">{{random_post.title}}</a></h3>
-                            <p>{{random_post.content | truncatewords_html:60 | safe}}</p>
-                            <h4><span class="date">{{random_post.created_at|date:'d.m.Y'}}</span><span class="author">Автор: <span
-                                    class="author-name">{{random_post.author}}</span></span>
-                            </h4>
+                    {% endif %}
+                </div>
+                <div class="col-lg-6">
+                    <div class="big-text">
+                        <h3><a href="{{ random_post.get_absolute_url }}">{{ random_post.title }}</a></h3>
+                        <div class="post-info mb-2">
+                            <span><i
+                                    class="fa fa-calendar-alt me-2"></i>{{ random_post.created_at|date:'d.m.Y' }}</span>
+                            <span><i class="fa fa-eye me-2"></i>{{ random_post.views }}</span>
+                            <div class="d-inline-block">
+                                <span>Категорія:
+                                    <a href="{{ random_post.category.get_absolute_url }}">{{ random_post.category }}</a>
+                                </span>
+                            </div>
+                            {% if random_post.tags.exists %}
+                                <div class="d-inline-block">
+                                    <span>Теги:
+                                        {% for tag in random_post.tags.all %}
+                                            <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                                            {% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div>{{ random_post.content | truncatewords_html:60 | safe }}</div>
+                        <div class="text-end mb-3">
+                            <a href="{{ random_post.get_absolute_url }}">
+                                <button class="btn btn-main btn-sm">Читати повністю</button>
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row post-list row-cols-2 row-cols-lg-3 row-cols-xl-4 gy-4">
                 {% for item in posts %}
-                <div class="col-md-3">
-                    <div class="single-post">
-                        {% if item.photo %}
-                        <img src="{{item.photo.url}}" alt={{post.title}}>
-                        {% else %}
-                        <img src="" alt={{post.title}}>
-                        {% endif %}
-                        <h3><a href="{{item.get_absolute_url}}">{{item.title}}</a></h3>
-                        <h4><span >Автор: <span class="author-name">{{item.author}}</span></span>
-                        </h4>
-                        <p>{{item.content | truncatewords_html:20 | safe}}</p>
-                        <h4><span>{{item.created_at|date:'d.m.Y'}}</span></h4>
+                    <div class="col d-flex h-auto">
+                        <div class="single-post d-flex h-auto">
+                            <div class="card">
+                                {% if item.photo %}
+                                    <a href="{{ item.get_absolute_url }}">
+                                        <img class="post-photo" src="{{ item.photo.url }}" alt={{ post.title }}>
+                                    </a>
+                                {% else %}
+                                    <img class="post-no-photo" src="" alt={{ post.title }}>
+                                {% endif %}
+                                <div class="card-body d-flex flex-column h-100 pt-1">
+                                    <h3 class="post-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                    </h3>
+                                    <div class="row mt-auto post-info">
+                                        <div class="col-auto">
+                                            <i class="fa fa-cubes me-2"></i>
+                                            <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa fa-eye me-2"></i>{{ item.views }}
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa fa-calendar-alt me-2"></i>{{ item.created_at|date:'d.m.Y' }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
                 {% empty %}
-                <p>За даним запитом нічного не знайдено...</p>
+                    <p>За даним запитом нічного не знайдено...</p>
                 {% endfor %}
             </div>
         </div>
-    </div>
-    {% include 'blog/inc/_pagination.html' %}
-</section>
+        {% include 'inc/_pagination.html' %}
+    </section>
 {% endblock %}

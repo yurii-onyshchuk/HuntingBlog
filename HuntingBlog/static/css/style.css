@@ -1,0 +1,406 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+    font-family: "Raleway", sans-serif;
+}
+
+.content {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.personal-cabinet,
+.contact {
+    max-width: 1000px;
+}
+
+a, a:hover {
+    color: #000000;
+    font-style: normal;
+    text-decoration: none;
+    transition: all 0.25s;
+}
+
+.btn-main {
+    color: white;
+    background-color: #40c4ff;
+    border-color: #40c4ff;
+}
+
+.btn-main:hover,
+.btn-main:focus {
+    color: white;
+    background-color: #40c4ff;
+    border-color: #40c4ff;
+}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+header .topbar .button-group a {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin: 0.5rem;
+}
+
+header .topbar a i {
+    color: white;
+    font-size: 20px;
+}
+
+header a.navbar-brand {
+    color: #061e37;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+header nav.navbar .menu ul.navbar-nav li {
+    display: inline-block;
+}
+
+header nav.navbar .menu ul.navbar-nav li a {
+    color: rgb(6, 30, 55);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 20px 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+header nav.navbar .menu ul li.active a {
+    background: #40c4ff;
+    color: #fff;
+}
+
+header nav.navbar .menu ul.navbar-nav li a:hover {
+    background: #40c4ff;
+    color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Sidebar
+--------------------------------------------------------------*/
+.sidebar .grid .portfolio-item {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.sidebar .grid .portfolio-item img {
+    float: left;
+    height: 70px;
+    width: 100px;
+    object-fit: cover;
+}
+
+.sidebar .grid .portfolio-item .portfolio-text {
+    margin-left: 110px;
+}
+
+.sidebar .grid .portfolio-item .portfolio-text h5 a {
+    color: #000;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 27px;
+    text-decoration: none;
+}
+
+.sidebar .grid .portfolio-item .portfolio-text p {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #b2b2b2;
+}
+
+.sidebar .grid .portfolio-item .portfolio-text p span {
+    margin: 0 10px;
+}
+
+.sidebar .button-group button {
+    border: medium none;
+    border-radius: 0;
+    color: #000;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: -2px;
+    padding: 21px;
+    text-transform: uppercase;
+    width: 49.99%;
+}
+
+.sidebar .button-group button.is-checked {
+    background: #40c4ff;
+    color: #fff;
+}
+
+.sidebar .button-group button:hover {
+    background: #40c4ff;
+    color: #fff;
+}
+
+.sidebar h2.sidebar-title {
+    background: #efefef none repeat scroll 0 0;
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 21px 25px;
+    text-transform: uppercase;
+}
+
+.sidebar .tags p {
+    background: #40c4ff none repeat scroll 0 0;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 35px;
+    margin-right: 4px;
+    padding: 0 12px;
+    margin-bottom: 7px;
+}
+
+.sidebar .tags p a {
+    color: #fff;
+    display: inline-block;
+    text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+# Post area
+--------------------------------------------------------------*/
+.post-info {
+    color: #7c7c7c;
+    font-size: 15px;
+}
+
+.post-info a {
+    color: #030f1c;
+}
+
+.post-info span {
+    font-weight: 400;
+    position: relative;
+    text-align: justify;
+    margin-right: 20px;
+}
+
+.blog-post-area img {
+    width: 100%;
+}
+
+.blog-post-area .big-text h3 a {
+    font-weight: 700;
+    font-size: 30px;
+    color: #061e37;
+    text-decoration: none;
+}
+
+.blog-post-area .big-text p {
+    color: #061e37;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: justify;
+    text-indent: 2.5rem;
+    margin-bottom: 0.75rem;
+    text-decoration: none;
+}
+
+.blog-post-area h4 span {
+    font-weight: 400;
+    font-size: 15px;
+    color: #061e37;
+    text-decoration: none;
+}
+
+.big-text .post-info span,
+.post-detail .post-info span {
+    line-height: 2;
+}
+
+.blog-post-area .big-text h4 span.view {
+    float: right
+}
+
+.blog-post-area h4 span.author-name {
+    font-weight: 500;
+}
+
+.blog-post-area .single-post h3.post-title {
+    line-height: 0.75;
+}
+
+.blog-post-area .single-post h3.post-title a {
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #061e37;
+    line-height: 0.75;
+}
+
+.blog-post-area .single-post img.post-photo {
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+}
+
+.blog-post-area .pagination .nav-links {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.blog-post-area .pagination .nav-links .page-numbers {
+    border: 1px solid #448aff;
+    border-radius: 50%;
+    color: #448aff;
+    display: inline-block;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    height: 45px;
+    line-height: 45px;
+    list-style: outside none none;
+    margin-right: 5px;
+    text-align: center;
+    width: 45px;
+}
+
+.blog-post-area .blog-post-area-style {
+    margin: 0 20px 0 40px;
+}
+
+.blog-post-area .pagination .nav-links .page-numbers.current {
+    background: #448aff;
+    color: #fff;
+}
+
+.blog-post-area .pagination .nav-links .page-numbers:hover {
+    background: #448aff;
+    color: #fff;
+}
+
+.blog-post-area .pagination .nav-links a {
+    text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+# Post detail page
+--------------------------------------------------------------*/
+.detail-blog-area .post-title {
+    color: #061e37;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.detail-blog-area img {
+    width: 100%
+}
+
+.detail-blog-area .post-detail .post-content p {
+    font-size: 16px;
+    font-weight: 500;
+    text-align: justify;
+    text-indent: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/*--------------------------------------------------------------
+# Comments part
+--------------------------------------------------------------*/
+.detail-blog-area .comments ul li .comment {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    position: relative;
+}
+
+.detail-blog-area .comments .author-name h5 {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 10px;
+    text-decoration: none;
+    margin-bottom: 0.6rem;
+}
+
+.detail-blog-area .comments .comment-date p {
+    font-size: 13px;
+    font-weight: 500;
+    color: #696363;
+    margin-bottom: 0.6rem;
+}
+
+.detail-blog-area .comments .comment-body p {
+    font-size: 15px;
+    font-weight: 500;
+    color: #696363;
+    margin-bottom: 0.6rem;
+}
+
+.detail-blog-area .comments .reply p span {
+    color: #696363;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 50px;
+}
+
+.detail-blog-area .comments .reply p span i {
+    color: #696363;
+    margin-right: 10px;
+}
+
+.detail-blog-area .comments ul.commentlist {
+    overflow: hidden;
+    padding-left: 0;
+}
+
+.detail-blog-area .comments ul.children {
+    overflow: hidden;
+    padding-left: 2.5rem;
+}
+
+
+.detail-blog-area .comments ul li {
+    list-style: none;
+}
+
+.comments .comment-author {
+    border-radius: 50%;
+    float: left;
+    height: 55px;
+    width: 55px;
+}
+
+.comments .comment-details {
+    margin-left: 70px;
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+footer.footer {
+    background: #000;
+}
+
+footer.footer ul li {
+    display: inline-block;
+    margin: 1rem;
+}
+
+footer.footer .footer-menu ul li a {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+footer.footer .footer-social ul li a {
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+}

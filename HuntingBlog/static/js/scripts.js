@@ -1,18 +1,18 @@
-$(document).ready(function ()  {
+$(document).ready(function () {
 
     $('.menu a').each(function () {
         let location = window.location.protocol + '//' + window.location.host + window.location.pathname;
         let link = this.href;
-        if (location == link) {
+        if (location === link) {
             $(this).parent().addClass('active');
         }
     });
+    var $grid = $('.grid').isotope({
+        filter: '.popular',
+        layoutMode: 'fitRows'
+    });
 
     var filterFns = {
-        numberGreaterThan50: function () {
-            var number = $(this).find('.number').text();
-            return parseInt(number, 10) > 50;
-        },
         ium: function () {
             var name = $(this).find('.name').text();
             return name.match(/ium$/);
