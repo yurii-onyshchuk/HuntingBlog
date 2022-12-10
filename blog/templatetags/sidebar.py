@@ -4,7 +4,7 @@ from blog.models import Post, Tag, Category
 register = template.Library()
 
 
-@register.inclusion_tag('blog/popular_posts_tpl.html')
+@register.inclusion_tag('blog/inc/_sidebar_posts_tpl.html')
 def show_posts_list(count=5):
     popular_posts = Post.objects.order_by('-views')[:count]
     recent_posts = Post.objects.order_by('-created_at')[:count]

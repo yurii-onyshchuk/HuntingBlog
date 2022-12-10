@@ -53,31 +53,7 @@
                 {% for item in posts %}
                     <div class="col d-flex h-auto">
                         <div class="single-post d-flex h-auto">
-                            <div class="card">
-                                {% if item.photo %}
-                                    <a href="{{ item.get_absolute_url }}">
-                                        <img class="post-photo" src="{{ item.photo.url }}" alt={{ post.title }}>
-                                    </a>
-                                {% else %}
-                                    <img class="post-no-photo" src="" alt={{ post.title }}>
-                                {% endif %}
-                                <div class="card-body d-flex flex-column h-100 pt-1">
-                                    <h3 class="post-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
-                                    </h3>
-                                    <div class="row mt-auto post-info">
-                                        <div class="col-auto">
-                                            <i class="fa fa-cubes me-2"></i>
-                                            <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa fa-eye me-2"></i>{{ item.views }}
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa fa-calendar-alt me-2"></i>{{ item.created_at|date:'d.m.Y' }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% include 'blog/inc/_single_post_card.html' %}
                         </div>
                     </div>
                 {% empty %}
