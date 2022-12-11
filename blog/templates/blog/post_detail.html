@@ -40,27 +40,9 @@
                             {{ post.content|safe }}
                         </div>
                     </div>
-                    <div class="comments mb-3">
-                        <h5 class="border-bottom mb-0 py-2">Коментарі</h5>
-                        <ul class="commentlist">
-                            <li>
-                                {% include 'blog/inc/_comment.html' %}
-                                <ul class="children">
-                                    <li>
-                                        {% include 'blog/inc/_comment.html' %}
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form method="POST">
-                            <div class="comment mb-4">
-                                {% csrf_token %}
-                                <textarea type="text" name="" id="" rows="4" placeholder="Коментар"
-                                          class="form-control mb-2"></textarea>
-                                <button type="submit" class="btn btn-main" value="Надіслати">Надіслати</button>
-                            </div>
-                        </form>
-                    </div>
+                    <section class="comments mb-3">
+                        {% include 'blog/inc/_comments.html' %}
+                    </section>
                 </div>
             </div>
         </div>

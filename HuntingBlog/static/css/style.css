@@ -35,6 +35,19 @@ a, a:hover {
     border-color: #40c4ff;
 }
 
+.btn-link-mod {
+    color: black;
+    font-size: 13px;
+    padding: 0;
+    text-decoration: none;
+    border: none;
+    --bs-btn-focus-shadow-rgb: none;
+}
+
+.btn-link-mod:hover,
+.btn-link-mod:focus {
+    color: #40c4ff;
+}
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -227,7 +240,7 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
     float: right
 }
 
-.blog-post-area h4 span.author-name {
+.blog-post-area h4 span.comment-author {
     font-weight: 500;
 }
 
@@ -318,7 +331,7 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
     position: relative;
 }
 
-.detail-blog-area .comments .author-name h5 {
+.detail-blog-area .comments .comment-author h5 {
     color: #000;
     font-size: 16px;
     font-weight: 500;
@@ -341,24 +354,25 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
     margin-bottom: 0.6rem;
 }
 
-.detail-blog-area .comments .reply p span {
+.detail-blog-area .comments .comment-tools div {
     color: #696363;
     font-size: 18px;
     font-weight: 500;
     margin-right: 50px;
 }
 
-.detail-blog-area .comments .reply p span i {
+.detail-blog-area .comments .comment-tools div i {
     color: #696363;
-    margin-right: 10px;
+    font-size: 18px;
+    margin-right: 3px;
 }
 
-.detail-blog-area .comments ul.commentlist {
+.detail-blog-area .comments ul.comment-list {
     overflow: hidden;
     padding-left: 0;
 }
 
-.detail-blog-area .comments ul.children {
+.detail-blog-area .comments ul.comment-tools-list {
     overflow: hidden;
     padding-left: 2.5rem;
 }
@@ -368,7 +382,7 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
     list-style: none;
 }
 
-.comments .comment-author {
+.comments .comment-author-photo {
     border-radius: 50%;
     float: left;
     height: 55px;

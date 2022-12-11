@@ -23,4 +23,5 @@ urlpatterns = [
     path('post/<str:slug>', views.SinglePost.as_view(), name='post'),
     path('search/', views.Search.as_view(), name='search'),
     path('contact/', views.contact, name='contact'),
+    path('like-comment/', views.like_comment, name='like_comment'),
 ]

@@ -1,9 +1,15 @@
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import F
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
-from .models import Post, Category, Tag
+from django.views.generic.edit import FormMixin
+
+from .models import Post, Category, Tag, Comment
+from .forms import CommentForm
 
 
 class Home(ListView):
@@ -51,10 +57,11 @@ class PostsByTag(ListView):
         return context
 
 
-class SinglePost(DetailView):
+class SinglePost(FormMixin, DetailView):
     model = Post
-    template_name = 'blog/post-detail.html'
+    template_name = 'blog/post_detail.html'
     context_object_name = 'post'
+    form_class = CommentForm
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
@@ -63,6 +70,20 @@ class SinglePost(DetailView):
         self.object.save()
         self.object.refresh_from_db()
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        post = self.get_object()
+        if form.is_valid():
+            if request.POST.get('parent', None):
+                form.instance.parent_id = int(request.POST.get('parent'))
+            form.instance.post = post
+            form.instance.user = self.request.user
+            form.save()
+        return redirect(post.get_absolute_url())
+
+    def get_success_url(self):
+        return reverse_lazy('post', kwargs={'slug': self.kwargs['slug']})
 
 
 class Search(ListView):
@@ -82,4 +103,17 @@ class Search(ListView):
 
 def contact(request):
     context = {'title': 'Контактна інформація'}
-    return render(request, 'blog/about.html', context)
+    return render(request, 'blog/contacts.html', context)
+
+
+@login_required
+def like_comment(request):
+    comment = get_object_or_404(Comment, id=request.POST['comment_id'])
+    if comment.users_like.filter(username=request.user.username).exists():
+        comment.users_like.remove(request.user)
+        action_result = 'removed'
+    else:
+        comment.users_like.add(request.user)
+        action_result = 'added'
+    like_total = comment.users_like.count()
+    return JsonResponse({'like_total': like_total, 'action_result': action_result})

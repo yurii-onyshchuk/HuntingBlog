@@ -28,7 +28,7 @@ class PostAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('id', 'title', 'category', 'created_at', 'views', 'get_photo', 'author',)
     list_display_links = ('id', 'title',)
-    list_filter = ('category', 'author', )
+    list_filter = ('category', 'author',)
     search_fields = ('title',)
     fields = ('title', 'slug', 'author', 'category', 'tags', 'content', 'photo', 'get_photo', 'views', 'created_at',)
     readonly_fields = ('created_at', 'views', 'get_photo',)
@@ -41,6 +41,11 @@ class PostAdmin(admin.ModelAdmin):
     get_photo.short_description = 'Мініатюра'
 
 
+class CommentAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Comment, CommentAdmin)

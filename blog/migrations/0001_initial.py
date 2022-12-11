@@ -58,19 +58,4 @@ class Migration(migrations.Migration):
                 'ordering': ['-created_at'],
             },
         ),
-        migrations.CreateModel(
-            name='Comment',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', models.TextField(verbose_name='Коментар')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата додавання')),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='replies', to='blog.comment', verbose_name='До коментаря')),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='post_comments', to='blog.post', verbose_name='Коментар')),
-            ],
-            options={
-                'verbose_name': 'Коментар',
-                'verbose_name_plural': 'Коментарі',
-                'ordering': ['-created_at'],
-            },
-        ),
     ]
