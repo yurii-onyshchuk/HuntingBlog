@@ -1,6 +1,7 @@
 import random
 
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import F
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -66,9 +67,16 @@ class SinglePost(FormMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
         context['title'] = Post.objects.get(slug=self.kwargs['slug'])
+
+        _list = Comment.objects.filter(post__slug=self.kwargs.get('slug'), parent__isnull=True)
+        paginator = Paginator(_list, 10)
+        page = self.request.GET.get('page')
+        context['comments'] = paginator.get_page(page)
+
         self.object.views = F('views') + 1
         self.object.save()
         self.object.refresh_from_db()
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -80,7 +88,7 @@ class SinglePost(FormMixin, DetailView):
             form.instance.post = post
             form.instance.user = self.request.user
             form.save()
-        return redirect(post.get_absolute_url())
+        return redirect(post.get_absolute_url() + '#comments')
 
     def get_success_url(self):
         return reverse_lazy('post', kwargs={'slug': self.kwargs['slug']})

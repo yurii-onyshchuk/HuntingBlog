@@ -262,46 +262,6 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
     object-fit: cover;
 }
 
-.blog-post-area .pagination .nav-links {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-
-.blog-post-area .pagination .nav-links .page-numbers {
-    border: 1px solid #448aff;
-    border-radius: 50%;
-    color: #448aff;
-    display: inline-block;
-    font-family: "Roboto", sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    height: 45px;
-    line-height: 45px;
-    list-style: outside none none;
-    margin-right: 5px;
-    text-align: center;
-    width: 45px;
-}
-
-.blog-post-area .blog-post-area-style {
-    margin: 0 20px 0 40px;
-}
-
-.blog-post-area .pagination .nav-links .page-numbers.current {
-    background: #448aff;
-    color: #fff;
-}
-
-.blog-post-area .pagination .nav-links .page-numbers:hover {
-    background: #448aff;
-    color: #fff;
-}
-
-.blog-post-area .pagination .nav-links a {
-    text-decoration: none;
-}
-
 /*--------------------------------------------------------------
 # Post detail page
 --------------------------------------------------------------*/
@@ -431,5 +391,44 @@ footer.footer .footer-menu ul li a {
 footer.footer .footer-social ul li a {
     color: #fff;
     font-size: 18px;
+    text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+# Pagination
+--------------------------------------------------------------*/
+.pagination .nav-links {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.pagination .nav-links .page-numbers {
+    border: 1px solid #448aff;
+    border-radius: 50%;
+    color: #448aff;
+    display: inline-block;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    height: 40px;
+    line-height: 40px;
+    list-style: outside none none;
+    margin-right: 5px;
+    text-align: center;
+    width: 40px;
+}
+
+.pagination .nav-links .page-numbers.current {
+    background: #448aff;
+    color: #fff;
+}
+
+.pagination .nav-links .page-numbers:hover {
+    background: #448aff;
+    color: #fff;
+}
+
+.pagination .nav-links a {
     text-decoration: none;
 }
