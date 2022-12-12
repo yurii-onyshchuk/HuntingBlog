@@ -1,0 +1,58 @@
+{% load static %}
+
+<div class="comment border-bottom mt-2">
+    <div class="comment-author-photo">
+        {% if comment.user.photo %}
+            <img src="{{ comment.user.photo.url }}" alt="">
+        {% else %}
+            <img src="{% static 'img/favicon.ico' %}" alt="">
+        {% endif %}
+    </div>
+    <section class="comment-details">
+        <div class="comment-author">
+            <h5>{{ comment.user }}</h5>
+        </div>
+        <div class="comment-date">
+            <p>{{ comment.created_at }}</p>
+        </div>
+        <div class="comment-body">
+            <p>{{ comment.body }}</p>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="comment-tools">
+                <div class="like d-inline-block">
+                    <form id="like-form" data-index="{{ comment.id }}">
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-link-mod"
+                                id="like" data-index="{{ comment.id }}"
+                                data-url="{% url 'like_comment' %}">
+                            <i class="far {% if user in comment.users_like.all %}fa-solid{% endif %} fa-thumbs-up"
+                               aria-hidden="true"
+                               data-index="{{ comment.id }}"></i>
+                        </button>
+                        {% with comment.users_like.count as amount %}
+                            <span style="display: {% if amount > 0 %}inline-block{% else %}none{% endif %}"
+                                  id="like-total-{{ comment.id }}">{{ comment.users_like.count }}</span>
+                        {% endwith %}
+                    </form>
+                </div>
+                <div class="reply d-inline-block">
+                    <button onclick="addReply('{{ comment.user }}', '{{ parent.id }}')"
+                            class="btn btn-link-mod">
+                        <i class="fa fa-reply" aria-hidden="true"></i>
+                    </button>
+                </div>
+                {% if comment.children %}
+                    <div class="reply-list-button d-inline-block">
+                        <button class="btn btn-link-mod" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#reply-list-{{ comment.id }}" aria-expanded="false"
+                                aria-controls="reply-list-{{ comment.id }}">
+                            <span class="collapsed"><i class="fa-solid fa-chevron-down fa-sm"></i>Показати всі відповіді ({{ comment.children.count }})</span>
+                            <span class="expanded"><i class="fa-solid fa-chevron-up fa-xs"></i>Згорнути всі відповіді</span>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
+</div>

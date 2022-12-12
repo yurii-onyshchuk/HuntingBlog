@@ -52,6 +52,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post', kwargs={'slug': self.slug})
 
+    def get_comment_count(self):
+        return Comment.objects.filter(post=self, parent__isnull=True).count()
+
     class Meta:
         verbose_name = 'Стаття(ю)'
         verbose_name_plural = 'Статті'

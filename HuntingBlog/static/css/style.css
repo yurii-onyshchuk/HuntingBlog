@@ -48,6 +48,7 @@ a, a:hover {
 .btn-link-mod:focus {
     color: #40c4ff;
 }
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -356,9 +357,7 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
 
 .detail-blog-area .comments .comment-tools div {
     color: #696363;
-    font-size: 18px;
-    font-weight: 500;
-    margin-right: 50px;
+    margin-right: 30px;
 }
 
 .detail-blog-area .comments .comment-tools div i {
@@ -367,14 +366,25 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
     margin-right: 3px;
 }
 
+.detail-blog-area .comments .comment-tools div span {
+    color: #696363;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.detail-blog-area .comments .comment-tools div span i {
+    color: #696363;
+    font-size: 12px;
+}
+
 .detail-blog-area .comments ul.comment-list {
     overflow: hidden;
     padding-left: 0;
 }
 
-.detail-blog-area .comments ul.comment-tools-list {
+.detail-blog-area .comments ul.reply-list {
     overflow: hidden;
-    padding-left: 2.5rem;
+    padding-left: 3.5rem;
 }
 
 
@@ -391,6 +401,11 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
 
 .comments .comment-details {
     margin-left: 70px;
+}
+
+[aria-expanded="false"] > .expanded,
+[aria-expanded="true"] > .collapsed {
+    display: none;
 }
 
 /*--------------------------------------------------------------
