@@ -1,24 +1,24 @@
-{% extends 'base.html' %}
-
+{% extends 'blog/blog_base.html' %}
 {% load static %}
 
 {% block title %} {{ title }} :: {{ block.super }} {% endblock %}
 
-{% block content %}
-    <section class="blog-post-area">
-        <div class="container">
-            <div class="row post-list row-cols-2 row-cols-lg-3 row-cols-xl-4 gy-4">
+{% block blog_content %}
+    <article class="blog-posts-area">
+        <section class="post-list">
+            <h3 class="text-center mb-3">{{ title }}</h3>
+            <div class="row gy-4">
                 {% for item in posts %}
-                    <div class="col d-flex h-auto">
+                    <div class="col-6 col-xl-4 d-flex h-auto">
                         <div class="single-post d-flex h-auto">
                             {% include 'blog/inc/_single_post_card.html' %}
                         </div>
                     </div>
                 {% empty %}
-                    <p>За даним запитом нічного не знайдено...</p>
+                    <p class="text-center">За даним запитом нічного не знайдено...</p>
                 {% endfor %}
             </div>
-        </div>
-        {% include 'inc/_pagination.html' %}
-    </section>
+            {% include 'inc/_pagination.html' %}
+        </section>
+    </article>
 {% endblock %}

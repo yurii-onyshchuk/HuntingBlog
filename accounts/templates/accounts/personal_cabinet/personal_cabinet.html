@@ -3,25 +3,25 @@
 {% block title %}{{ title }} :: {{ block.super }}{% endblock %}
 
 {% block content %}
-    <div class="container personal-cabinet">
+    <div class="container personal-cabinet max-w-1000">
         <div class="row justify-content-center">
             <div class="col">
                 <h3>{{ title }}</h3>
                 <h6 class="text-muted pb-2 mb-3 border-bottom">{{ subtitle }}</h6>
             </div>
-            <div class="row row-cols-1 g-1">
+            <div class="row row-cols-1 gy-1">
                 <div class="col">
                     <a href="{% url 'personal_info' user.slug %}" class="text-reset" role="button">
                         <div class="card mb-3">
                             <div class="row g-0">
-                                <div class="col-1 position-relative">
+                                <div class="col-2 col-md-1 position-relative">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                          class="bi bi-person position-absolute top-50 start-50 translate-middle"
                                          viewBox="0 0 16 16">
                                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                                     </svg>
                                 </div>
-                                <div class="col-11">
+                                <div class="col">
                                     <div class="card-body ps-0 ps-md-1">
                                         <h1 class="h5">Особисті дані</h1>
                                         <p class="card-text small text-muted">Змінити основну світлину, імя користувача,
@@ -36,7 +36,7 @@
                     <a href="{% url 'personal_safety' user.slug %}" class="text-reset" role="button">
                         <div class="card mb-3">
                             <div class="row g-0">
-                                <div class="col-1 position-relative">
+                                <div class="col-2 col-md-1 position-relative">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                          fill="currentColor"
                                          class="bi bi-shield-lock position-absolute top-50 start-50 translate-middle"
@@ -45,7 +45,7 @@
                                         <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415z"/>
                                     </svg>
                                 </div>
-                                <div class="col-11">
+                                <div class="col">
                                     <div class="card-body ps-0 ps-md-1">
                                         <h1 class="h5">Безпека</h1>
                                         <p class="card-text small text-muted">Змінити пароль для входу або видалити

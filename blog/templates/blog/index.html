@@ -1,66 +1,68 @@
-{% extends 'base.html' %}
-
+{% extends 'blog/blog_base.html' %}
 {% load static %}
 
 {% block title %} {{ title }} :: {{ block.super }} {% endblock %}
 
-{% block content %}
-    <section class="blog-post-area">
-        <div class="container">
-            <div class="row big-post mb-3">
-                <div class="col-lg-6">
-                    {% if random_post.photo %}
-                        <div class="big-image mb-2">
-                            <a href="{{ random_post.get_absolute_url }}">
-                                <img src="{{ random_post.photo.url }}" alt="{{ random_post.title }}">
-                            </a>
+{% block blog_content %}
+    <article class="blog-posts-area">
+        <section class="big-post border-bottom pb-3 mb-4">
+            <div class="row">
+                {% if random_post.photo %}
+                    <div class="big-post-image col-12 col-md-6 order-1 order-md-0 mb-2">
+                        <a href="{{ random_post.get_absolute_url }}">
+                            <img src="{{ random_post.photo.url }}" alt="{{ random_post.title }}">
+                        </a>
+                    </div>
+                {% endif %}
+                <div class="big-post-info col order-0 order-md-1">
+                    <h3><a href="{{ random_post.get_absolute_url }}">{{ random_post.title }}</a></h3>
+                    <div class="post-info mb-2">
+                        <div class="d-inline-block">
+                            <span>
+                                <i class="fa fa-calendar-alt me-2"></i>{{ random_post.created_at|date:'d.m.Y' }}
+                            </span>
                         </div>
-                    {% endif %}
-                </div>
-                <div class="col-lg-6">
-                    <div class="big-text">
-                        <h3><a href="{{ random_post.get_absolute_url }}">{{ random_post.title }}</a></h3>
-                        <div class="post-info mb-2">
-                            <span><i
-                                    class="fa fa-calendar-alt me-2"></i>{{ random_post.created_at|date:'d.m.Y' }}</span>
+                        <div class="d-inline-block">
                             <span><i class="fa fa-eye me-2"></i>{{ random_post.views }}</span>
+                        </div>
+                        <div class="d-inline-block">
+                            <span>Категорія:
+                                <a href="{{ random_post.category.get_absolute_url }}">{{ random_post.category }}</a>
+                            </span>
+                        </div>
+                        {% if random_post.tags.exists %}
                             <div class="d-inline-block">
-                                <span>Категорія:
-                                    <a href="{{ random_post.category.get_absolute_url }}">{{ random_post.category }}</a>
-                                </span>
-                            </div>
-                            {% if random_post.tags.exists %}
-                                <div class="d-inline-block">
                                     <span>Теги:
                                         {% for tag in random_post.tags.all %}
                                             <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
                                             {% if not forloop.last %}, {% endif %}
                                         {% endfor %}
                                     </span>
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div>{{ random_post.content | truncatewords_html:60 | safe }}</div>
-                        <div class="text-end mb-3">
-                            <a href="{{ random_post.get_absolute_url }}">
-                                <button class="btn btn-main btn-sm">Читати повністю</button>
-                            </a>
-                        </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="big-post-text col-12 order-2">
+                    <div class="mb-1">{{ random_post.content | truncatewords_html:60 | safe }}</div>
+                    <div class="text-end">
+                        <a href="{{ random_post.get_absolute_url }}">
+                            <button class="btn btn-main btn-sm">Читати повністю</button>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="row post-list row-cols-2 row-cols-lg-3 row-cols-xl-4 gy-4">
+        </section>
+        <section class="post-list">
+            <div class="row row-cols-2 row-cols-xl-3 gy-4 mb-4">
                 {% for item in posts %}
                     <div class="col d-flex h-auto">
                         <div class="single-post d-flex h-auto">
                             {% include 'blog/inc/_single_post_card.html' %}
                         </div>
                     </div>
-                {% empty %}
-                    <p>За даним запитом нічного не знайдено...</p>
                 {% endfor %}
             </div>
-        </div>
-        {% include 'inc/_pagination.html' %}
-    </section>
+            {% include 'inc/_pagination.html' %}
+        </section>
+    </article>
 {% endblock %}

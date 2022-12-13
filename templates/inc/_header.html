@@ -30,25 +30,25 @@
             {% endif %}
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg bg-light py-lg-0" aria-label="Offcanvas navbar large">
+    <nav class="navbar navbar-expand-lg bg-light py-0 mb-lg-2" aria-label="Offcanvas navbar large">
         <div class="container">
             <div class="site-logo">
                 <a class="navbar-brand" href="{% url 'home' %}">
-                    <img class="post-photo" src="{% static 'img/favicon.ico' %}" height="60px" alt="">
+                    <img class="py-1" src="{% static 'img/favicon.ico' %}" height="60px" alt="">
                     <span>Ні пуху, ні пера!</span>
                 </a>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
-                    aria-controls="offcanvasNavbar2">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasNavbar2"
-                 aria-labelledby="offcanvasNavbar2Label">
+            <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasNavbar"
+                 aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header justify-content-end">
                     <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas"
                             aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body ms-0 ms-lg-5">
+                <div class="offcanvas-body ms-0 ms-xl-5">
                     <div class="menu">
                         <ul class="navbar-nav border-bottom">
                             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Головна</a></li>

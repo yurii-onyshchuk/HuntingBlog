@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %}
+
+{% block content %}
+    <div class="container blog">
+        <div class="row">
+            <div class="col-lg-5 col-xl-4 order-1 order-lg-0">
+                {% include 'blog/inc/_sidebar.html' %}
+            </div>
+            <div class="col order-0 order-lg-1">
+                {% include 'blog/inc/_search_box.html' with class='d-block d-lg-none' %}
+                {% block blog_content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

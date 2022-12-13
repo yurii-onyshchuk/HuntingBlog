@@ -33,7 +33,7 @@ $(document).ready(function () {
         });
     });
 
-    // Add to wishlist
+    // Click like
     $(document).on('click', '#like', function (e) {
         const comment_id = $(this).attr('data-index')
         e.preventDefault();

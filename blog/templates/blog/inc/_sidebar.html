@@ -1,26 +1,24 @@
 {% load sidebar %}
 
-<div class="search mb-3">
-    <form class="d-flex" role="search" action="{% url 'search' %}" method="GET">
-        <input type="search" name="s" class="form-control me-2" placeholder="Введіть пошуковий запит..." required>
-        <button type="submit" class="btn btn-main" value="Пошук">Пошук</button>
-    </form>
-</div>
+<aside class="sidebar">
+    {% include 'blog/inc/_search_box.html' with class='d-none d-lg-block' %}
 
-{% show_posts_list 5 %}
+    {% show_posts_list 5 %}
 
-<div class="tags mb-3">
-    <h2 class="sidebar-title">Пошук за тегами</h2>
-    {% show_tag_list as tags %}
-    {% for tag in tags %}
-        <p><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></p>
-    {% endfor %}
-</div>
-<div class="subscribe mb-3">
-    <h2 class="sidebar-title">Підписка на розсилку</h2>
-    <form class="d-flex" action="#" method="POST">
-        {% csrf_token %}
-        <input type="email" name="" class="form-control me-2" id="" placeholder="Email" required>
-        <button type="submit" class="btn btn-main" value="Підписатися" >Підписатися</button>
-    </form>
-</div>
+    <div class="tags mb-3">
+        <h2 class="sidebar-title">Пошук за тегами</h2>
+        {% show_tag_list as tags %}
+        {% for tag in tags %}
+            <p><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></p>
+        {% endfor %}
+    </div>
+
+    <div class="subscribe mb-3">
+        <h2 class="sidebar-title">Підписка на розсилку</h2>
+        <form class="d-flex" action="#" method="POST">
+            {% csrf_token %}
+            <input type="email" name="" class="form-control me-2" id="" placeholder="Email" required>
+            <button type="submit" class="btn btn-main" value="Підписатися">Підписатися</button>
+        </form>
+    </div>
+</aside>
