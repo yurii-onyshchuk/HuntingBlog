@@ -288,24 +288,25 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
     margin-bottom: 0.6rem;
 }
 
-.post-detail-area .comments .comment-tools div {
+.post-detail-area .comments .comment-tools div.tool-item {
+    display: inline-block;
     color: #696363;
     margin-right: 30px;
 }
 
-.post-detail-area .comments .comment-tools div i {
+.post-detail-area .comments .comment-tools div.tool-item i {
     color: #696363;
     font-size: 18px;
     margin-right: 3px;
 }
 
-.post-detail-area .comments .comment-tools .reply-list-button span {
+.post-detail-area .comments .comment-tools .reply-list-collapse-button span {
     color: #696363;
     font-weight: 500;
     font-size: 14px;
 }
 
-.post-detail-area .comments .comment-tools .reply-list-button span i {
+.post-detail-area .comments .comment-tools .reply-list-collapse-button span i {
     color: #696363;
     font-size: 13px;
 }
