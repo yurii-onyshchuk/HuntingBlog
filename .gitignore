@@ -1,4 +1,7 @@
 .idea
 *.pyc
 *.sqlite3
-media
+/static
+/media
+/.env.development
+/.env.production
