@@ -13,70 +13,66 @@ from .models import Post, Category, Tag, Comment
 from .forms import CommentForm
 
 
-class Home(ListView):
+class PostList(ListView):
     model = Post
-    template_name = 'blog/index.html'
-    context_object_name = 'posts'
     paginate_by = 12
+    allow_empty = False
+    extra_context = {'title': 'Головна'}
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Головна'
-        context['random_post'] = random.choice(self.get_queryset())
+        if self.object_list:
+            context['random_post'] = random.choice(self.object_list)
         return context
 
 
-class PostsByCategory(ListView):
-    template_name = 'blog/index.html'
-    context_object_name = 'posts'
-    paginate_by = 12
-    allow_empty = False
-
+class PostsByCategory(PostList):
     def get_queryset(self):
         return Post.objects.filter(category__slug=self.kwargs['slug'])
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = Category.objects.get(slug=self.kwargs['slug'])
-        context['random_post'] = random.choice(self.get_queryset())
+        context['title'] = Category.objects.get(slug=self.kwargs['slug']).title
         return context
 
 
-class PostsByTag(ListView):
-    template_name = 'blog/index.html'
-    context_object_name = 'posts'
-    paginate_by = 12
-    allow_empty = False
-
+class PostsByTag(PostList):
     def get_queryset(self):
         return Post.objects.filter(tags__slug=self.kwargs['slug'])
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = Tag.objects.get(slug=self.kwargs['slug'])
-        context['random_post'] = random.choice(self.get_queryset())
+        context['title'] = Tag.objects.get(slug=self.kwargs['slug']).title
         return context
+
+
+class Search(PostList):
+    allow_empty = True
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        context['title'] = 'Результати пошуку'
+        context['q'] = self.request.GET.get('q')
+        return context
+
+    def get_queryset(self):
+        return Post.objects.filter(title__icontains=self.request.GET.get('q'))
 
 
 class SinglePost(FormMixin, DetailView):
     model = Post
-    template_name = 'blog/post_detail.html'
-    context_object_name = 'post'
     form_class = CommentForm
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
-        context['title'] = Post.objects.get(slug=self.kwargs['slug'])
-
+        self.object.views = F('views') + 1
+        self.object.save()
+        self.object.refresh_from_db()
         _list = Comment.objects.filter(post__slug=self.kwargs.get('slug'), parent__isnull=True)
         paginator = Paginator(_list, 10)
         page = self.request.GET.get('page')
         context['comments'] = paginator.get_page(page)
-
-        self.object.views = F('views') + 1
-        self.object.save()
-        self.object.refresh_from_db()
-
+        context['title'] = self.object.title
         return context
 
     def post(self, request, *args, **kwargs):
@@ -92,21 +88,6 @@ class SinglePost(FormMixin, DetailView):
 
     def get_success_url(self):
         return reverse_lazy('post', kwargs={'slug': self.kwargs['slug']})
-
-
-class Search(ListView):
-    template_name = 'blog/search.html'
-    context_object_name = 'posts'
-    paginate_by = 12
-
-    def get_queryset(self):
-        return Post.objects.filter(title__icontains=self.request.GET.get('s'))
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['s'] = f"s={self.request.GET.get('s')}&"
-        context['title'] = 'Результати пошуку'
-        return context
 
 
 def contact(request):

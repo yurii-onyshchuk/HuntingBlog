@@ -1,24 +1,24 @@
 <div class="card">
-    {% if item.photo %}
-        <a href="{{ item.get_absolute_url }}">
-            <img class="post-photo" src="{{ item.photo.url }}" alt={{ post.title }}>
+    {% if post.photo %}
+        <a href="{{ post.get_absolute_url }}">
+            <img class="post-photo" src="{{ post.photo.url }}" alt="">
         </a>
     {% else %}
-        <img class="post-no-photo" src="" alt={{ post.title }}>
+        <img class="post-no-photo" src="" alt="">
     {% endif %}
     <div class="card-body d-flex flex-column h-100 pt-1">
-        <h3 class="post-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+        <h3 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
         </h3>
         <div class="row mt-auto post-info">
             <div class="col-auto">
                 <i class="fa fa-cubes me-2"></i>
-                <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
+                <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
             </div>
             <div class="col-auto">
-                <i class="fa fa-eye me-2"></i>{{ item.views }}
+                <i class="fa fa-eye me-2"></i>{{ post.views }}
             </div>
             <div class="col-auto">
-                <i class="fa fa-calendar-alt me-2"></i>{{ item.created_at|date:'d.m.Y' }}
+                <i class="fa fa-calendar-alt me-2"></i>{{ post.created_at|date:'d.m.Y' }}
             </div>
         </div>
     </div>

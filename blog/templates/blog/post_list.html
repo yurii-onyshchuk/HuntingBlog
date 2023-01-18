@@ -1,0 +1,76 @@
+{% extends 'blog/blog_base.html' %}
+{% load static %}
+
+{% block blog_content %}
+    <article class="blog-posts-area">
+        {% url 'search' as path %}
+        {% if not path == request.path %}
+            <section class="big-post border-bottom pb-3 mb-4">
+                <div class="row">
+                    {% if random_post.photo %}
+                        <div class="big-post-image col-12 col-md-6 order-1 order-md-0 mb-2">
+                            <a href="{{ random_post.get_absolute_url }}">
+                                <img class="post-photo" src="{{ random_post.photo.url }}" alt="{{ random_post.title }}">
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="big-post-info col order-0 order-md-1">
+                        <h3><a href="{{ random_post.get_absolute_url }}">{{ random_post.title }}</a></h3>
+                        <div class="post-info mb-2">
+                            <div class="d-inline-block">
+                            <span>
+                                <i class="fa fa-calendar-alt me-2"></i>{{ random_post.created_at|date:'d.m.Y' }}
+                            </span>
+                            </div>
+                            <div class="d-inline-block">
+                                <span><i class="fa fa-eye me-2"></i>{{ random_post.views }}</span>
+                            </div>
+                            <div class="d-inline-block">
+                            <span>Категорія:
+                                <a href="{{ random_post.category.get_absolute_url }}">{{ random_post.category }}</a>
+                            </span>
+                            </div>
+                            {% if random_post.tags.exists %}
+                                <div class="d-inline-block">
+                                    <span>Теги:
+                                        {% for tag in random_post.tags.all %}
+                                            <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                                            {% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="big-post-text col-12 order-2">
+                        <div class="mb-1">{{ random_post.content | truncatewords_html:60 | safe }}</div>
+                        <div class="text-end">
+                            <a href="{{ random_post.get_absolute_url }}">
+                                <button class="btn btn-main btn-sm">Читати повністю</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% else %}
+            <h2 class="text-center mb-3">{{ title }}</h2>
+        {% endif %}
+        <section class="post-list">
+            <div class="row gy-4 mb-4">
+                {% for post in post_list %}
+                    <div class="col-6 col-xl-4 d-flex h-auto">
+                        <div class="single-post d-flex h-auto">
+                            {% include 'blog/inc/_single_post_card.html' %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12 task-no-found text-center">
+                        <img class="mt-2 mb-3" src="{% static 'img/posts-not-found.png' %}" height="150px" alt="">
+                        <h6>Завдань за даним запитом не знайдено...</h6>
+                    </div>
+                {% endfor %}
+            </div>
+            {% include 'inc/_pagination.html' %}
+        </section>
+    </article>
+{% endblock %}

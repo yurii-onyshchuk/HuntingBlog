@@ -10,7 +10,7 @@
             {% csrf_token %}
             {{ form|crispy }}
             <div class="d-flex align-items-center">
-                <button class="btn btn-dark w-50" type="submit">Зареєструватися</button>
+                <button class="btn btn-main w-50" type="submit">Зареєструватися</button>
                 <div class="text-center w-50">
                     <a href="{% url 'login' %}">Вже зареєстровані?</a>
                 </div>

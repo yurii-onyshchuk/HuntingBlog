@@ -211,7 +211,7 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
     margin-right: 20px;
 }
 
-.blog-posts-area img {
+.blog-posts-area img.post-photo {
     width: 100%;
 }
 
