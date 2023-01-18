@@ -3,6 +3,7 @@
 --------------------------------------------------------------*/
 body {
     font-family: "Raleway", sans-serif;
+    font-size: 14px;
 }
 
 .content {
@@ -12,6 +13,13 @@ body {
 
 .max-w-1000 {
     max-width: 1000px;
+    margin: 0 auto;
+}
+
+.layout-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 0.75rem;
 }
 
 a, a:hover {
@@ -48,6 +56,10 @@ a, a:hover {
     color: #40c4ff;
 }
 
+.dropdown-item:active {
+    background-color: #888888;
+}
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -60,7 +72,7 @@ header .topbar .button-group a {
     margin: 0.5rem;
 }
 
-header .topbar a i {
+header .topbar a.user-link i {
     color: white;
     font-size: 20px;
 }

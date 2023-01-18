@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
@@ -6,12 +7,14 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView
 from . import forms
 from .models import User
+from .utils import RedirectAuthenticatedUserMixin
 
 
-class UserRegister(CreateView):
+class UserRegister(RedirectAuthenticatedUserMixin, CreateView):
     extra_context = {'title': 'Реєстрація'}
-    template_name = 'accounts/register.html'
-    form_class = forms.UserRegisterForm
+    template_name = 'accounts/signup.html'
+    form_class = forms.UserSingUpForm
+    redirect_authenticated_user_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
         user = form.save()
@@ -23,7 +26,7 @@ class UserRegister(CreateView):
 class UserAuthentication(LoginView):
     extra_context = {'title': 'Вхід'}
     template_name = 'accounts/login.html'
-    form_class = forms.UserAuthenticationForm
+    form_class = AuthenticationForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('home')
 
@@ -39,8 +42,7 @@ class PersonalInfoUpdateView(LoginRequiredMixin, UpdateView):
                      'subtitle': 'Керуйте своїми особистими та контактними даними'}
     template_name = 'accounts/personal_cabinet/personal_info.html'
     form_class = forms.UserForm
-    success_url = reverse_lazy('home')
-    model = User
+    success_url = reverse_lazy('personal_cabinet')
 
     def get_queryset(self):
         return User.objects.filter(pk=self.request.user.pk)

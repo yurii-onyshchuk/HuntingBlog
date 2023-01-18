@@ -10,7 +10,11 @@
     </div>
     <section class="comment-details">
         <div class="comment-author">
-            <h5>{{ comment.user }}</h5>
+            {% if comment.user.first_name and comment.user.last_name %}
+                <h5>{{ comment.user.first_name }} {{ comment.user.last_name }}</h5>
+            {% else %}
+                <h5>{{ comment.user }}</h5>
+            {% endif %}
         </div>
         <div class="comment-date">
             <p>{{ comment.created_at }}</p>
