@@ -1,3 +1,4 @@
+{% load static %}
 <div class="button-group filters-button-group pb-3">
     <button data-filter=".popular" class="button is-checked">Популярні</button>
     <button data-filter=".recent" class="button">Нещодані</button>
@@ -6,11 +7,8 @@
     {% for post in popular_posts %}
         <div class="portfolio-item popular">
             <a href="{{ post.get_absolute_url }}">
-                {% if post.photo %}
-                    <img src="{{ post.photo.url }}" alt="{{ post.title }}">
-                {% else %}
-                    <img src="" alt="">
-                {% endif %}
+                <img class="post-photo border" alt="" src="{% if post.photo %}{{ post.photo.url }}
+                                                    {% else %}{% static 'img/no-post-image.png' %}{% endif %}">
             </a>
             <div class="portfolio-text">
                 <h5 class="m-0"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
@@ -23,11 +21,8 @@
     {% endfor %}
     {% for post in recent_posts %}
         <div class="portfolio-item recent">
-            {% if post.photo %}
-                <img src="{{ post.photo.url }}" alt="{{ post.title }}">
-            {% else %}
-                <img src="" alt="">
-            {% endif %}
+            <img class="post-photo border" alt="" src="{% if post.photo %}{{ post.photo.url }}
+                                                    {% else %}{% static 'img/no-post-image.png' %}{% endif %}">
             <div class="portfolio-text">
                 <h5 class="m-0"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
                 <p class="mb-0">

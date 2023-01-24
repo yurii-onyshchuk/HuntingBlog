@@ -1,7 +1,7 @@
-<div class="search mb-3 {{ class }}">
-    <form class="d-flex" role="search" action="{% url 'search' %}" method="GET">
-        <input required class="form-control me-2" type="search" name="q" aria-label="Search"
-               placeholder="Введіть пошуковий запит...">
-        <button type="submit" class="btn btn-main" value="Пошук">Пошук</button>
+<div class="search {{ class }}">
+    <form class="input-group" role="search" action="{% url 'search' %}" method="GET">
+        <input required class="form-control" type="search" name="q" value="{{ q }}"
+               aria-label="Search" placeholder="Введіть пошуковий запит...">
+        <button type="submit" class="btn {{ button_class }}" value="Пошук">Пошук</button>
     </form>
 </div>

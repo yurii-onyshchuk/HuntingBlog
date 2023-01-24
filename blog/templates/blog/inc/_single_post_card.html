@@ -1,11 +1,10 @@
-<div class="card">
-    {% if post.photo %}
-        <a href="{{ post.get_absolute_url }}">
-            <img class="post-photo" src="{{ post.photo.url }}" alt="">
-        </a>
-    {% else %}
-        <img class="post-no-photo" src="" alt="">
-    {% endif %}
+{% load static %}
+
+<div class="single-post card d-flex h-auto">
+    <a href="{{ post.get_absolute_url }}">
+        <img class="post-photo" alt=""
+             src="{% if post.photo %}{{ post.photo.url }}{% else %}{% static 'img/no-post-image.png' %}{% endif %}">
+    </a>
     <div class="card-body d-flex flex-column h-100 pt-1">
         <h3 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
         </h3>

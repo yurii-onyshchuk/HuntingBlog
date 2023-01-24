@@ -8,16 +8,15 @@
                 <div class="user py-2">
                     <div class="dropdown">
                         <a class="user-link" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                            <i class="fa-regular fa-user py-1"></i>
+                            <p class="d-inline-block text-bg-dark fw-bold mb-0 pe-2">
+                                {% if user.first_name and user.last_name %}
+                                    {{ user.first_name }} {{ user.last_name }}
+                                {% else %}
+                                    {{ user }}
+                                {% endif %}</p>
+                            <i class="d-inline-block fa-regular fa-user"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                {% if user.first_name and user.last_name %}
-                                    <h6 class="dropdown-header font">{{ user.first_name }} {{ user.last_name }}</h6>
-                                {% else %}
-                                    <h6 class="dropdown-header font">{{ user }}</h6>
-                                {% endif %}
-                            </li>
                             <li><a class="dropdown-item" href="{% url 'personal_cabinet' %}">
                                 <i class="bi bi-person me-2 fs-6"></i>Особистий кабінет</a>
                             </li>
@@ -43,10 +42,20 @@
                     <span>Ні пуху, ні пера!</span>
                 </a>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                    aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="tool-bar">
+                <button class="navbar-toggler toggle-search-button p-0 me-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#SearchBox">
+                    <i class="fa fa-search"></i>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="SearchBox">
+                {% include 'blog/inc/_search_box.html' with class='d-lg-none d-flex w-100 mt-1 mt-lg-0' button_class='btn-dark' %}
+            </div>
             <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasNavbar"
                  aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header justify-content-end">

@@ -1,24 +1,27 @@
 {% load sidebar %}
 
-<aside class="sidebar">
-    {% include 'blog/inc/_search_box.html' with class='d-none d-lg-block' %}
+<div class="col-lg-5 col-xl-4 order-1 order-lg-0">
+    <aside class="sidebar">
+        {% include 'blog/inc/_search_box.html' with class='d-none d-lg-block mb-3' button_class='btn-main' %}
 
-    {% show_posts_list 5 %}
+        {% show_posts_list 5 %}
 
-    <div class="tags mb-3">
-        <h2 class="sidebar-title">Пошук за тегами</h2>
-        {% show_tag_list as tags %}
-        {% for tag in tags %}
-            <p><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></p>
-        {% endfor %}
-    </div>
+        <div class="tags mb-3">
+            <h2 class="sidebar-title">Пошук за тегами</h2>
+            {% show_tag_list as tags %}
+            {% for tag in tags %}
+                <p><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></p>
+            {% endfor %}
+        </div>
 
-    <div class="subscribe mb-3">
-        <h2 class="sidebar-title">Підписка на розсилку</h2>
-        <form class="d-flex" action="#" method="POST">
-            {% csrf_token %}
-            <input type="email" name="" class="form-control me-2" id="" placeholder="Email" required>
-            <button type="submit" class="btn btn-main" value="Підписатися">Підписатися</button>
-        </form>
-    </div>
-</aside>
+        <div class="subscribe mb-3">
+            <h2 class="sidebar-title">Підписка на розсилку</h2>
+            <form class="d-flex" action="#" method="POST">
+                {% csrf_token %}
+                <input required type="email" name="subscribe" class="form-control me-2" id="" aria-label="subscribe"
+                       placeholder="Email">
+                <button type="submit" class="btn btn-main" value="Підписатися">Підписатися</button>
+            </form>
+        </div>
+    </aside>
+</div>
