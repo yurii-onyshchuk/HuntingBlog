@@ -1,8 +1,14 @@
-{% extends 'blog/blog_base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_filters %}
 
-{% block blog_content %}
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %}
+
+{% block sidebar %}
+    {% include 'blog/inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
     <article class="post-detail-area">
         <section class="post-detail">
             <h2 class="post-title">{{ post.title }}</h2>

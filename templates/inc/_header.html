@@ -7,14 +7,14 @@
             {% if user.is_authenticated %}
                 <div class="user py-2">
                     <div class="dropdown">
-                        <a class="user-link" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                        <a class="nav-link user-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                             <p class="d-inline-block text-bg-dark fw-bold mb-0 pe-2">
                                 {% if user.first_name and user.last_name %}
                                     {{ user.first_name }} {{ user.last_name }}
                                 {% else %}
                                     {{ user }}
                                 {% endif %}</p>
-                            <i class="d-inline-block fa-regular fa-user"></i>
+                            <i class="d-inline-block fa-regular fa-user fs-6"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="{% url 'personal_cabinet' %}">

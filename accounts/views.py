@@ -10,7 +10,7 @@ from .models import User
 from .utils import RedirectAuthenticatedUserMixin
 
 
-class UserRegister(RedirectAuthenticatedUserMixin, CreateView):
+class UserSignUp(RedirectAuthenticatedUserMixin, CreateView):
     extra_context = {'title': 'Реєстрація'}
     template_name = 'accounts/signup.html'
     form_class = forms.UserSingUpForm

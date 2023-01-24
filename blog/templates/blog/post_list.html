@@ -1,11 +1,17 @@
-{% extends 'blog/blog_base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block blog_content %}
-    <article class="blog-posts-area">
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %}
+
+{% block sidebar %}
+    {% include 'blog/inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    <section class="blog-posts-area">
         {% url 'search' as path %}
         {% if not path == request.path %}
-            <section class="big-post border-bottom pb-3 mb-4">
+            <article class="big-post border-bottom pb-3 mb-4">
                 <div class="row">
                     {% if random_post.photo %}
                         <div class="big-post-image col-12 col-md-6 order-1 order-md-0 mb-2">
@@ -51,17 +57,15 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </article>
         {% else %}
-            <h2 class="text-center mb-3">{{ title }}</h2>
+            <h2 class="page-title">{{ title }}</h2>
         {% endif %}
-        <section class="post-list">
+        <div class="post-list">
             <div class="row gy-4 mb-4">
                 {% for post in post_list %}
                     <div class="col-6 col-xl-4 d-flex h-auto">
-                        <div class="single-post d-flex h-auto">
-                            {% include 'blog/inc/_single_post_card.html' %}
-                        </div>
+                        {% include 'blog/inc/_single_post_card.html' %}
                     </div>
                 {% empty %}
                     <div class="col-12 task-no-found text-center">
@@ -71,6 +75,6 @@
                 {% endfor %}
             </div>
             {% include 'inc/_pagination.html' %}
-        </section>
-    </article>
+        </div>
+    </section>
 {% endblock %}

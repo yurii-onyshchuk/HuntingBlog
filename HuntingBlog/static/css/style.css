@@ -16,10 +16,13 @@ body {
     margin: 0 auto;
 }
 
+.page-title {
+    text-align: center;
+}
+
 .layout-form {
     max-width: 400px;
     margin: 0 auto;
-    padding: 0 0.75rem;
 }
 
 a, a:hover {
@@ -58,6 +61,10 @@ a, a:hover {
 
 .dropdown-item:active {
     background-color: #888888;
+}
+
+.bi:before {
+    line-height: 1.25;
 }
 
 /*--------------------------------------------------------------
@@ -106,6 +113,13 @@ header nav.navbar .menu ul li.active a {
 header nav.navbar .menu ul.navbar-nav li a:hover {
     background: #40c4ff;
     color: #fff;
+}
+
+.toggle-search-button,
+.toggle-search-button:focus {
+    border: none;
+    box-shadow: none;
+
 }
 
 /*--------------------------------------------------------------

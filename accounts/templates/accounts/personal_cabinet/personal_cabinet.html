@@ -3,26 +3,23 @@
 {% block title %}{{ title }} :: {{ block.super }}{% endblock %}
 
 {% block content %}
-    <div class="container-md personal-cabinet">
-        <div class="row">
-            <div class="col max-w-1000 text-center text-sm-start">
-                <i class="d-inline-block bi bi-person fs-3 me-2"></i>
-                <h3 class="d-inline-block">{{ title }}</h3>
-                <h6 class="text-muted pb-3 mb-3 border-bottom text-start">{{ subtitle }}</h6>
-            </div>
+    <div class="personal-cabinet max-w-1000">
+        <div class="text-center text-sm-start mb-3">
+            <h3><i class="bi bi-person fs-3 me-2"></i>{{ title }}</h3>
+            <h6 class="text-muted text-start border-bottom pb-2">{{ subtitle }}</h6>
         </div>
-        <div class="row row-cols-1">
-            <div class="col max-w-1000">
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+            <div class="col">
                 <a href="{% url 'personal_info' user.slug %}" class="text-reset" role="button">
-                    <div class="card mb-3">
+                    <div class="card">
                         <div class="row g-0">
-                            <div class="col-2 col-md-1 position-relative">
+                            <div class="col-2 position-relative">
                                 <i class="bi bi-card-checklist position-absolute top-50 start-50 translate-middle fs-2"></i>
                             </div>
                             <div class="col">
                                 <div class="card-body ps-0 ps-md-1">
                                     <h1 class="h5">Особисті дані</h1>
-                                    <p class="card-text text-muted">Змінити імя користувача, прізвище та електронну
+                                    <p class="card-text small text-muted">Змінити імя користувача, прізвище та електронну
                                         адресу</p>
                                 </div>
                             </div>
@@ -30,17 +27,17 @@
                     </div>
                 </a>
             </div>
-            <div class="col max-w-1000">
+            <div class="col">
                 <a href="{% url 'personal_safety' user.slug %}" class="text-reset" role="button">
-                    <div class="card mb-3">
+                    <div class="card">
                         <div class="row g-0">
-                            <div class="col-2 col-md-1 position-relative">
+                            <div class="col-2 position-relative">
                                 <i class="bi bi-shield-lock position-absolute top-50 start-50 translate-middle fs-2"></i>
                             </div>
                             <div class="col">
                                 <div class="card-body ps-0 ps-md-1">
                                     <h1 class="h5">Безпека</h1>
-                                    <p class="card-text text-muted">Змінити пароль для входу або видалити
+                                    <p class="card-text small text-muted">Змінити пароль для входу або видалити
                                         обліковий запис</p>
                                 </div>
                             </div>
