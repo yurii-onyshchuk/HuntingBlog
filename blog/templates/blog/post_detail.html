@@ -40,46 +40,51 @@
                 {{ post.content|safe }}
             </div>
         </section>
-        <section class="comments mb-3">
-            <h5 class="mt-4"><a name="comments">Залишити коментар</a></h5>
+        <section class="comments">
+            <a name="comments"></a>
             {% if user.is_authenticated %}
-                <form method="POST">
-                    <div class="comment">
-                        {% csrf_token %}
-                        <input type="hidden" name="parent" id="contactparent" value="">
-                        {{ form|crispy }}
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-main" value="Надіслати">Надіслати</button>
+                <div class="mt-4 mb-2">
+                    <h6>Залишити коментар</h6>
+                    <form method="POST">
+                        <div class="comment">
+                            {% csrf_token %}
+                            <input type="hidden" name="parent" id="contactparent" value="">
+                            {{ form|crispy }}
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-main" value="Надіслати">Надіслати</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             {% else %}
-                <p class="mb-4">
-                    <a class="btn btn-main me-0" href="{% url 'login' %}?next={{ request.path }}#comments">Авторизуватися</a>
-                    , щоб залишити коментар
-                </p>
+                <div class="my-4">
+                    <h6>Авторизуйтеся, щоб залишити коментар</h6>
+                    <a class="btn btn-main"
+                       href="{% url 'login' %}?next={{ request.path }}#comments">Авторизуватися</a>
+                    {% include 'accounts/inc/_modal_authentication.html' with massage='Авторизуйтеся, щоб відреагувати в коментарях' anchor='#comments' %}
+                </div>
             {% endif %}
-            <h5 class="border-bottom mb-0 pb-2">Коментарі ({{ post.get_comment_count }})</h5>
+            <h6 class="border-bottom pb-1">Коментарі ({{ post.get_comment_count }})</h6>
             <ul class="comment-list">
                 {% for comment in comments %}
                     {% if comment.is_parent %}
-                        <li>
+                        <li class="comment border-bottom py-2">
                             {% include 'blog/inc/_single_comment.html' with comment=comment parent=comment %}
                             {% if comment.children %}
                                 <ul class="reply-list">
                                     {% for reply in comment.children %}
-                                        <div class="collapse" id="reply-list-{{ comment.id }}">
-                                            <li>
+                                        <li class="collapse" id="reply-list-{{ comment.id }}">
+                                            <div class="reply border-top pt-2 mt-2">
                                                 {% include 'blog/inc/_single_comment.html' with comment=reply parent=comment %}
-                                            </li>
-                                        </div>
+                                            </div>
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
                         </li>
                     {% endif %}
                 {% empty %}
-                    <div class="py-3 border-bottom">Немає коментарів</div>
+                    <div class="border-bottom pt-2 pb-3">Немає коментарів</div>
                 {% endfor %}
             </ul>
             {% include 'inc/_pagination.html' with page_obj=comments anchor='#comments' %}

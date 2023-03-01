@@ -1,81 +1,59 @@
 {% load static %}
 
-<div class="comment border-bottom mt-2">
-    <div class="comment-author-photo">
-        {% if comment.user.photo %}
-            <img src="{{ comment.user.photo.url }}" alt="">
-        {% else %}
-            <img src="{% static 'img/favicon.ico' %}" alt="">
+<img class="user-photo comment-author-photo" alt="" src="{% if comment.user.photo %}{{ comment.user.photo.url }}
+                                                         {% else %}{% static 'img/default_avatar.jpg' %}{% endif %}">
+<div class="comment-details">
+    <h6 class="comment-author mb-1">{{ comment.user }}</h6>
+    <p class="comment-date mb-0"><i class="fa fa-calendar-alt me-2"></i>{{ comment.created_at }}</p>
+    <p class="comment-body my-2">{{ comment.body }}</p>
+    <div class="comment-tools">
+        <div class="like tool-item">
+            {% if user.is_authenticated %}
+                <form class="d-inline" id="like-form" data-index="{{ comment.id }}">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-link-mod" title="Вподобайка" id="like"
+                            data-index="{{ comment.id }}" data-url="{% url 'like_comment' %}">
+                        <i class="far {% if user in comment.users_like.all %}fa-solid{% endif %} fa-thumbs-up"
+                           aria-hidden="true" data-index="{{ comment.id }}"></i>
+                    </button>
+                </form>
+            {% else %}
+                <button type="button" title="Вподобайка" class="btn btn-link-mod" data-bs-toggle="modal"
+                        data-bs-target="#authentication">
+                    <i class="far fa-thumbs-up" aria-hidden="true"></i>
+                </button>
+            {% endif %}
+            {% with comment.users_like.count as amount %}
+                <span style="display: {% if amount > 0 %}inline-block{% else %}none{% endif %}"
+                      id="like-total-{{ comment.id }}">{{ comment.users_like.count }}</span>
+            {% endwith %}
+        </div>
+        <div class="reply tool-item">
+            {% if user.is_authenticated %}
+                <button onclick="addReply('{{ comment.user }}', '{{ parent.id }}')"
+                        class="btn btn-link-mod" title="Відповісти">
+                    <i class="fa fa-reply" aria-hidden="true"></i>
+                </button>
+            {% else %}
+                <button type="button" title="Відповісти" class="btn btn-link btn-link-mod btn-sm ps-0"
+                        data-bs-toggle="modal" data-bs-target="#authentication">
+                    <i class="fa fa-reply me-2" aria-hidden="true"></i>
+                </button>
+            {% endif %}
+        </div>
+        {% if comment.children %}
+            <div class="reply-list-collapse-button tool-item me-0">
+                <button class="btn btn-link-mod" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#reply-list-{{ comment.id }}" aria-expanded="false"
+                        aria-controls="reply-list-{{ comment.id }}">
+                        <span class="collapsed">
+                            <i class="fa-solid fa-chevron-down fa-sm"></i>Показати всі відповіді ({{ comment.children.count }})
+                        </span>
+                    <span class="expanded">
+                            <i class="fa-solid fa-chevron-up fa-xs"></i>Згорнути всі відповіді ({{ comment.children.count }})
+                        </span>
+                </button>
+            </div>
         {% endif %}
     </div>
-    <section class="comment-details">
-        <div class="comment-author">
-            {% if comment.user.first_name and comment.user.last_name %}
-                <h5>{{ comment.user.first_name }} {{ comment.user.last_name }}</h5>
-            {% else %}
-                <h5>{{ comment.user }}</h5>
-            {% endif %}
-        </div>
-        <div class="comment-date">
-            <p>{{ comment.created_at }}</p>
-        </div>
-        <div class="comment-body">
-            <p>{{ comment.body }}</p>
-        </div>
-        <div class="comment-tools">
-            <div class="like tool-item">
-                {% if user.is_authenticated %}
-                    <form class="d-inline" id="like-form" data-index="{{ comment.id }}">
-                        {% csrf_token %}
-                        <button type="button" class="btn btn-link-mod" title="Вподобайка"
-                                id="like" data-index="{{ comment.id }}"
-                                data-url="{% url 'like_comment' %}">
-                            <i class="far {% if user in comment.users_like.all %}fa-solid{% endif %} fa-thumbs-up"
-                               aria-hidden="true"
-                               data-index="{{ comment.id }}"></i>
-                        </button>
-                    </form>
-                {% else %}
-                    <button type="button" title="Вподобайка"
-                            class="btn btn-link-mod"
-                            data-bs-toggle="modal"
-                            data-bs-target="#authentication">
-                        <i class="far fa-thumbs-up" aria-hidden="true"></i>
-                    </button>
-                {% endif %}
-                {% with comment.users_like.count as amount %}
-                    <span style="display: {% if amount > 0 %}inline-block{% else %}none{% endif %}"
-                          id="like-total-{{ comment.id }}">{{ comment.users_like.count }}</span>
-                {% endwith %}
-            </div>
-            <div class="reply tool-item">
-                {% if user.is_authenticated %}
-                    <button onclick="addReply('{{ comment.user }}', '{{ parent.id }}')"
-                            class="btn btn-link-mod" title="Відповісти">
-                        <i class="fa fa-reply" aria-hidden="true"></i>
-                    </button>
-                {% else %}
-                    <button type="button" title="Відповісти"
-                            class="btn btn-link btn-link-mod btn-sm ps-0"
-                            data-bs-toggle="modal"
-                            data-bs-target="#authentication">
-                        <i class="fa fa-reply me-2" aria-hidden="true"></i>
-                    </button>
-                {% endif %}
-            </div>
-            {% include 'accounts/inc/_modal_authentication.html' with massage='Авторизуйтеся, щоб відреагувати в коментарях' anchor='#comments' %}
-            {% if comment.children %}
-                <div class="reply-list-collapse-button tool-item me-0">
-                    <button class="btn btn-link-mod" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#reply-list-{{ comment.id }}" aria-expanded="false"
-                            aria-controls="reply-list-{{ comment.id }}">
-                        <span class="collapsed"><i
-                                class="fa-solid fa-chevron-down fa-sm"></i>Показати всі відповіді ({{ comment.children.count }})</span>
-                        <span class="expanded"><i
-                                class="fa-solid fa-chevron-up fa-xs"></i>Згорнути всі відповіді ({{ comment.children.count }})</span>
-                    </button>
-                </div>
-            {% endif %}
-        </div>
-    </section>
 </div>

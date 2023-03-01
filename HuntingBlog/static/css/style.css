@@ -3,7 +3,6 @@
 --------------------------------------------------------------*/
 body {
     font-family: "Raleway", sans-serif;
-    font-size: 14px;
 }
 
 .content {
@@ -76,7 +75,11 @@ a, a:hover {
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
-header .topbar .button-group a {
+header .topbar {
+    height: 30px;
+}
+
+header .topbar .authentication-button a {
     color: white;
     font-size: 13px;
     font-weight: 600;
@@ -85,9 +88,11 @@ header .topbar .button-group a {
     margin: 0.5rem;
 }
 
-header .topbar a.user-link i {
+header .topbar a.user-link,
+header .topbar a.login,
+header .topbar a.register {
     color: white;
-    font-size: 20px;
+    font-size: 13px;
 }
 
 header a.navbar-brand {
@@ -293,31 +298,25 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
 /*--------------------------------------------------------------
 # Comments part
 --------------------------------------------------------------*/
-.post-detail-area .comments ul li .comment {
-    padding-bottom: 10px;
-    padding-top: 10px;
+.post-detail-area .comments ul li.comment {
     position: relative;
 }
 
-.post-detail-area .comments .comment-author h5 {
+.post-detail-area .comments h6.comment-author {
     font-size: 15px;
     font-weight: 600;
-    line-height: 10px;
     text-decoration: none;
-    margin-bottom: 0.6rem;
 }
 
-.post-detail-area .comments .comment-date p {
+.post-detail-area .comments p.comment-date {
     font-size: 13px;
     font-weight: 500;
     color: #696363;
-    margin-bottom: 0.6rem;
 }
 
-.post-detail-area .comments .comment-body p {
+.post-detail-area .comments p.comment-body {
     font-size: 15px;
     font-weight: 500;
-    margin-bottom: 0.6rem;
 }
 
 .post-detail-area .comments .comment-tools div.tool-item {
@@ -344,29 +343,25 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
 }
 
 .post-detail-area .comments ul.comment-list {
+    list-style: none;
     overflow: hidden;
     padding-left: 0;
 }
 
 .post-detail-area .comments ul.reply-list {
+    list-style: none;
     overflow: hidden;
     padding-left: 3.5rem;
 }
 
-
-.post-detail-area .comments ul li {
-    list-style: none;
-}
-
-.comments .comment-author-photo {
-    border-radius: 50%;
+.comments img.comment-author-photo {
     float: left;
-    height: 55px;
-    width: 55px;
+    height: 50px;
+    width: 50px;
 }
 
 .comments .comment-details {
-    margin-left: 70px;
+    margin-left: 65px;
 }
 
 [aria-expanded="false"] > .expanded,
