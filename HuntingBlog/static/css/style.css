@@ -67,6 +67,12 @@ a, a:hover {
     line-height: 1.25;
 }
 
+.user-photo {
+    border-radius: 50%;
+    border: 1px solid #e5e5e5;
+    object-fit: cover;
+}
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -366,6 +372,14 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
 [aria-expanded="false"] > .expanded,
 [aria-expanded="true"] > .collapsed {
     display: none;
+}
+
+/*--------------------------------------------------------------
+# Personal cabinet
+--------------------------------------------------------------*/
+.personal-info img.user-photo {
+    height: 100px;
+    width: 100px;
 }
 
 /*--------------------------------------------------------------

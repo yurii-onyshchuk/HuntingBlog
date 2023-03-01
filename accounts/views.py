@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
@@ -46,6 +47,22 @@ class PersonalInfoUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_queryset(self):
         return User.objects.filter(pk=self.request.user.pk)
+
+
+@login_required
+def user_avatar_change(request):
+    if request.method == 'POST':
+        user = User.objects.get(pk=request.user.pk)
+        user.photo = request.FILES['user_photo']
+        user.save_thumbnail()
+    return redirect('personal_info', slug=request.user.slug)
+
+
+@login_required
+def user_avatar_delete(request):
+    if request.method == 'POST':
+        User.objects.get(pk=request.user.pk).photo.delete(save=True)
+    return redirect('personal_info', slug=request.user.slug)
 
 
 class PersonalSafetyView(LoginRequiredMixin, TemplateView):
