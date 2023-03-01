@@ -15,7 +15,7 @@ class UserSignUp(RedirectAuthenticatedUserMixin, CreateView):
     extra_context = {'title': 'Реєстрація'}
     template_name = 'accounts/signup.html'
     form_class = forms.UserSingUpForm
-    redirect_authenticated_user_url = reverse_lazy('tasks')
+    redirect_authenticated_user_url = reverse_lazy('home')
 
     def form_valid(self, form):
         user = form.save()
