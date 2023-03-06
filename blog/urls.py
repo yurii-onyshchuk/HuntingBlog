@@ -24,4 +24,5 @@ urlpatterns = [
     path('search/', views.Search.as_view(), name='search'),
     path('contact/', views.contact, name='contact'),
     path('like-comment/', views.like_comment, name='like_comment'),
+    path('subscribe/', views.subscribe, name='subscribe'),
 ]

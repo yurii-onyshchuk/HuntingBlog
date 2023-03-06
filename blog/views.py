@@ -1,15 +1,20 @@
+import os
 import random
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
 from django.db.models import F
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
+from django.http import HttpResponseNotAllowed
 
-from .models import Post, Category, Tag, Comment
+from .models import Post, Category, Tag, Comment, Subscriber
 from .forms import CommentForm
 
 
@@ -106,3 +111,24 @@ def like_comment(request):
         action_result = 'added'
     like_total = comment.users_like.count()
     return JsonResponse({'like_total': like_total, 'action_result': action_result})
+
+
+def subscribe(request):
+    if request.method == 'POST':
+        email = request.POST.get('subscribe-email', None)
+        if email:
+            subscriber, created = Subscriber.objects.get_or_create(email=email)
+            if created:
+                messages.success(request, 'Підписка на розсилку новин успішно оформлена!')
+                subject = "Підписка на розсилку"
+                from_email = os.getenv('EMAIL_HOST_USER')
+                recipient_list = [email]
+                context = {'admin_email': os.getenv('EMAIL_HOST_USER')}
+                html_message = get_template('blog/email/subscribe_email.html').render(context)
+                send_mail(subject=subject, message='', from_email=from_email, recipient_list=recipient_list,
+                          html_message=html_message)
+            else:
+                messages.warning(request, 'Вказана електронна адреса вже берете участь у розсилці новин!')
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        return HttpResponseNotAllowed

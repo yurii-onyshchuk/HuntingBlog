@@ -1,0 +1,23 @@
+<p>В нашому блозі з'явився новий допис!</p>
+<hr>
+<section class="post-detail">
+    <h2 class="post-title">{{ post.title }}</h2>
+    <div class="post-info">
+        <span>Категорія: {{ post.category }}</span>
+        {% if post.tags.exists %}
+            <span>Теги:
+                {% for tag in post.tags.all %}
+                    {{ tag.title }}
+                    {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </span>
+        {% endif %}
+    </div>
+    <div class="post-content">
+        {{ post.content|safe }}
+    </div>
+</section>
+<hr>
+<p><b>Дякуємо за користування нашим сайтом!</b></p>
+<p><b>Ви також можете зв'язатися з нами за наступною адресою:</b></p>
+<p>{{ admin_email }}</p>

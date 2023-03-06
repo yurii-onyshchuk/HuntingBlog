@@ -30,7 +30,8 @@ class PostAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title',)
     list_filter = ('category', 'author',)
     search_fields = ('title',)
-    fields = ('title', 'slug', 'author', 'category', 'tags', 'content', 'photo', 'get_photo', 'views', 'created_at',)
+    fields = ('title', 'slug', 'author', 'category', 'tags', 'content', 'photo', 'get_photo', 'views', 'created_at',
+              'notify_subscribers',)
     readonly_fields = ('created_at', 'views', 'get_photo',)
 
     def get_photo(self, obj):
@@ -45,7 +46,12 @@ class CommentAdmin(admin.ModelAdmin):
     pass
 
 
+class SubscriberAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Subscriber, SubscriberAdmin)

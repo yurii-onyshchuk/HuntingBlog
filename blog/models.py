@@ -45,6 +45,7 @@ class Post(models.Model):
     photo = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, verbose_name='Фото')
     tags = models.ManyToManyField(Tag, blank=True, related_name='posts', verbose_name='Теги')
     views = models.IntegerField(default=0, verbose_name='Перегляди')
+    notify_subscribers = models.BooleanField(verbose_name='Сповістити підписників', default=False)
 
     def __str__(self):
         return self.title
@@ -89,3 +90,16 @@ class Comment(models.Model):
         if self.parent is None:
             return True
         return False
+
+
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True, verbose_name='Електронна адреса')
+    subscribed_at = models.DateTimeField(auto_now_add=True, verbose_name='Час підписки')
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = 'Підписка на розсилку'
+        verbose_name_plural = 'Підписки на розсилку'
+        ordering = ['-subscribed_at']

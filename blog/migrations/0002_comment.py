@@ -7,8 +7,6 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    replaces = [('blog', '0002_comment'), ('blog', '0003_alter_comment_users_like')]
-
     dependencies = [
         ('blog', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),

@@ -16,9 +16,9 @@
 
         <div class="subscribe mb-3">
             <h2 class="sidebar-title">Підписка на розсилку</h2>
-            <form class="d-flex" action="#" method="POST">
+            <form class="d-flex" action="{% url 'subscribe' %}" method="POST">
                 {% csrf_token %}
-                <input required type="email" name="subscribe" class="form-control me-2" id="" aria-label="subscribe"
+                <input required type="email" name="subscribe-email" class="form-control me-2" id="" aria-label="subscribe"
                        placeholder="Email">
                 <button type="submit" class="btn btn-main" value="Підписатися">Підписатися</button>
             </form>
