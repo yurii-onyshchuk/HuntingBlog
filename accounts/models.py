@@ -1,14 +1,22 @@
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from autoslug import AutoSlugField
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
+username_validator = UnicodeUsernameValidator()
+
 
 class User(AbstractUser):
-    email = models.EmailField(_("email address"), blank=False)
-    slug = AutoSlugField(populate_from='username', verbose_name='URL', unique=True)
-    photo = models.ImageField(upload_to='photos/accounts/%Y/%m', blank=False, verbose_name='Основна світлина')
+    username = models.CharField(_("username"), max_length=150, unique=True, validators=[username_validator],
+                                error_messages={"unique": _("A user with that username already exists."), })
+    slug = AutoSlugField(populate_from='username', verbose_name='Slug', unique=True)
+    email = models.EmailField(_("email"), unique=True)
+    photo = models.ImageField(upload_to='photos/accounts/%Y/%m', blank=True, verbose_name='Основна світлина')
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         verbose_name = 'Користувач'
@@ -18,7 +26,7 @@ class User(AbstractUser):
         if self.first_name and self.last_name:
             return f'{self.first_name} {self.last_name}'
         else:
-            return str(self.username)
+            return self.email
 
     def save_thumbnail(self):
         super().save()
