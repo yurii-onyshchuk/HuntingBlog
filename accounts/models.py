@@ -4,6 +4,7 @@ from autoslug import AutoSlugField
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
+from .managers import CustomUserManager
 
 username_validator = UnicodeUsernameValidator()
 
@@ -15,8 +16,10 @@ class User(AbstractUser):
     email = models.EmailField(_("email"), unique=True)
     photo = models.ImageField(upload_to='photos/accounts/%Y/%m', blank=True, verbose_name='Основна світлина')
 
+    objects = CustomUserManager()
+
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = 'Користувач'
