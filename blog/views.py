@@ -16,6 +16,7 @@ from django.http import HttpResponseNotAllowed
 
 from .models import Post, Category, Tag, Comment, Subscriber
 from .forms import CommentForm
+from .services import click_like
 
 
 class PostList(ListView):
@@ -103,14 +104,9 @@ def contact(request):
 @login_required
 def like_comment(request):
     comment = get_object_or_404(Comment, id=request.POST['comment_id'])
-    if comment.users_like.filter(username=request.user.username).exists():
-        comment.users_like.remove(request.user)
-        action_result = 'removed'
-    else:
-        comment.users_like.add(request.user)
-        action_result = 'added'
-    like_total = comment.users_like.count()
-    return JsonResponse({'like_total': like_total, 'action_result': action_result})
+    action_result = click_like(comment, request.user)
+    total_like = comment.total_like
+    return JsonResponse({'action_result': action_result, 'total_like': total_like, })
 
 
 def subscribe(request):

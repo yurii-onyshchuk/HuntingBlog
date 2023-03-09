@@ -46,13 +46,13 @@ $(document).ready(function () {
                 action: 'post'
             },
             success: function (json) {
-                const like_total = document.getElementById("like-total-" + comment_id)
-                like_total.innerText = json.like_total
+                const total_like = document.getElementById("total-like-" + comment_id)
+                total_like.innerText = json.total_like
 
-                if (json.like_total > '0') {
-                    like_total.style.display = 'inline-block'
+                if (json.total_like > '0') {
+                    total_like.style.display = 'inline-block'
                 } else {
-                    like_total.style.display = 'none'
+                    total_like.style.display = 'none'
                 }
 
                 if (json.action_result === 'added') {

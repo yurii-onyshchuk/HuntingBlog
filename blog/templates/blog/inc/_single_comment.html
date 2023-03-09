@@ -1,9 +1,10 @@
 {% load static %}
+{% load blog_tags %}
 
 <img class="user-photo comment-author-photo" alt="" src="{% if comment.user.photo %}{{ comment.user.photo.url }}
                                                          {% else %}{% static 'img/default_avatar.jpg' %}{% endif %}">
 <div class="comment-details">
-    <h6 class="comment-author mb-1">{{ comment.user }}</h6>
+    <h6 class="comment-author mb-1">{{ comment.get_user }}</h6>
     <p class="comment-date mb-0"><i class="fa fa-calendar-alt me-2"></i>{{ comment.created_at }}</p>
     <p class="comment-body my-2">{{ comment.body }}</p>
     <div class="comment-tools">
@@ -13,7 +14,8 @@
                     {% csrf_token %}
                     <button type="button" class="btn btn-link-mod" title="Вподобайка" id="like"
                             data-index="{{ comment.id }}" data-url="{% url 'like_comment' %}">
-                        <i class="far {% if user in comment.users_like.all %}fa-solid{% endif %} fa-thumbs-up"
+                        {% liked_users_ids comment as liked_user_ids %}
+                        <i class="far {% if user.id in liked_user_ids %}fa-solid{% endif %} fa-thumbs-up"
                            aria-hidden="true" data-index="{{ comment.id }}"></i>
                     </button>
                 </form>
@@ -23,9 +25,9 @@
                     <i class="far fa-thumbs-up" aria-hidden="true"></i>
                 </button>
             {% endif %}
-            {% with comment.users_like.count as amount %}
+            {% with comment.total_like as amount %}
                 <span style="display: {% if amount > 0 %}inline-block{% else %}none{% endif %}"
-                      id="like-total-{{ comment.id }}">{{ comment.users_like.count }}</span>
+                      id="total-like-{{ comment.id }}">{{ comment.total_like }}</span>
             {% endwith %}
         </div>
         <div class="reply tool-item">
