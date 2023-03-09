@@ -12,6 +12,14 @@ class UserSingUpForm(UserCreationForm):
         self.fields['password1'].help_text = ''
         self.fields['password2'].help_text = ''
 
+    def save(self, commit=True):
+        data = self.cleaned_data.copy()
+        email = data.pop('email')
+        password = data.pop('password1')
+        data.pop('password2')
+        user = get_user_model().objects.create_user(email, password, **data)
+        return user
+
     class Meta:
         model = get_user_model()
         fields = ('first_name', 'last_name', 'email', 'password1', 'password2',)
