@@ -35,18 +35,18 @@ $(document).ready(function () {
 
     // Click like
     $(document).on('click', '#like', function (e) {
-        const comment_id = $(this).attr('data-index')
+        const obj_id = $(this).attr('data-index')
         e.preventDefault();
         $.ajax({
             type: 'POST',
             url: $(this).attr('data-url'),
             data: {
-                comment_id: comment_id,
-                csrfmiddlewaretoken: $('#like-form input[name="csrfmiddlewaretoken"]').attr('data-index', comment_id).val(),
+                obj_id: obj_id,
+                csrfmiddlewaretoken: $('#like-form input[name="csrfmiddlewaretoken"]').attr('data-index', obj_id).val(),
                 action: 'post'
             },
             success: function (json) {
-                const total_like = document.getElementById("total-like-" + comment_id)
+                const total_like = document.getElementById("total-like-" + obj_id)
                 total_like.innerText = json.total_like
 
                 if (json.total_like > '0') {
@@ -56,9 +56,9 @@ $(document).ready(function () {
                 }
 
                 if (json.action_result === 'added') {
-                    $('#like i[data-index="' + comment_id + '"]').addClass('fa-solid')
+                    $('#like i[data-index="' + obj_id + '"]').addClass('fa-solid')
                 } else {
-                    $('#like i[data-index="' + comment_id + '"]').removeClass('fa-solid')
+                    $('#like i[data-index="' + obj_id + '"]').removeClass('fa-solid')
                 }
             },
             error: function (xhr, errmsg, err) {

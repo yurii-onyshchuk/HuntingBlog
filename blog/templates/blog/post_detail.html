@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_filters %}
+{% load blog_tags %}
 
 {% block title %} {{ title }} :: {{ block.super }} {% endblock %}
 
@@ -39,11 +40,15 @@
             <div class="post-content">
                 {{ post.content|safe }}
             </div>
+            <div class="d-block text-start text-sm-end">
+                <span class="me-2 border-bottom" style="font-size: 14px">Сподобався допис?</span>
+                {% like_button post 'post' %}
+            </div>
         </section>
         <section class="comments">
             <a name="comments"></a>
             {% if user.is_authenticated %}
-                <div class="mt-4 mb-2">
+                <div class="mt-4 mt-sm-2 mb-2">
                     <h6>Залишити коментар</h6>
                     <form method="POST">
                         <div class="comment">

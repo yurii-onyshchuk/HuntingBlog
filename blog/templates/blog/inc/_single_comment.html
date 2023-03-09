@@ -8,28 +8,7 @@
     <p class="comment-date mb-0"><i class="fa fa-calendar-alt me-2"></i>{{ comment.created_at }}</p>
     <p class="comment-body my-2">{{ comment.body }}</p>
     <div class="comment-tools">
-        <div class="like tool-item">
-            {% if user.is_authenticated %}
-                <form class="d-inline" id="like-form" data-index="{{ comment.id }}">
-                    {% csrf_token %}
-                    <button type="button" class="btn btn-link-mod" title="Вподобайка" id="like"
-                            data-index="{{ comment.id }}" data-url="{% url 'like_comment' %}">
-                        {% liked_users_ids comment as liked_user_ids %}
-                        <i class="far {% if user.id in liked_user_ids %}fa-solid{% endif %} fa-thumbs-up"
-                           aria-hidden="true" data-index="{{ comment.id }}"></i>
-                    </button>
-                </form>
-            {% else %}
-                <button type="button" title="Вподобайка" class="btn btn-link-mod" data-bs-toggle="modal"
-                        data-bs-target="#authentication">
-                    <i class="far fa-thumbs-up" aria-hidden="true"></i>
-                </button>
-            {% endif %}
-            {% with comment.total_like as amount %}
-                <span style="display: {% if amount > 0 %}inline-block{% else %}none{% endif %}"
-                      id="total-like-{{ comment.id }}">{{ comment.total_like }}</span>
-            {% endwith %}
-        </div>
+        {% like_button comment 'comment' %}
         <div class="reply tool-item">
             {% if user.is_authenticated %}
                 <button onclick="addReply('{{ comment.user }}', '{{ parent.id }}')"

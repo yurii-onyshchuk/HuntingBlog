@@ -1,0 +1,24 @@
+{% load blog_tags %}
+
+<div class="like tool-item">
+    {% if user.is_authenticated %}
+        <form class="d-inline" id="like-form" data-index="{{ obj.id }}">
+            {% csrf_token %}
+            <button type="button" class="btn btn-link-mod" title="Вподобайка" id="like"
+                    data-index="{{ obj.id }}" data-url="{{ url }}">
+                {% liked_users_ids obj as liked_user_ids %}
+                <i class="far {% if user.id in liked_user_ids %}fa-solid{% endif %} fa-thumbs-up"
+                   aria-hidden="true" data-index="{{ obj.id }}"></i>
+            </button>
+        </form>
+    {% else %}
+        <button type="button" title="Вподобайка" class="btn btn-link-mod" data-bs-toggle="modal"
+                data-bs-target="#authentication">
+            <i class="far fa-thumbs-up" aria-hidden="true"></i>
+        </button>
+    {% endif %}
+    {% with obj.total_like as amount %}
+        <span style="display: {% if amount > 0 %}inline-block{% else %}none{% endif %}"
+              id="total-like-{{ obj.id }}">{{ obj.total_like }}</span>
+    {% endwith %}
+</div>

@@ -20,6 +20,7 @@ class Post(models.Model):
     tags = models.ManyToManyField('Tag', blank=True, related_name='posts', verbose_name='Теги')
     views = models.IntegerField(default=0, verbose_name='Перегляди')
     notify_subscribers = models.BooleanField(verbose_name='Сповістити підписників', default=False)
+    likes = GenericRelation('Like')
 
     def __str__(self):
         return self.title
@@ -29,6 +30,10 @@ class Post(models.Model):
 
     def get_comment_count(self):
         return Comment.objects.filter(post=self, parent__isnull=True).count()
+
+    @property
+    def total_like(self):
+        return self.likes.count()
 
     class Meta:
         verbose_name = 'Стаття(ю)'
@@ -90,7 +95,7 @@ class Comment(models.Model):
         if self.user:
             return self.user
         else:
-            return "Видалений користувач"
+            return "Видалений аккаунт"
 
     @property
     def children(self):

@@ -319,13 +319,15 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
     font-weight: 500;
 }
 
-.post-detail-area .comments .comment-tools div.tool-item {
+.post-detail-area .comments .comment-tools div.tool-item,
+.like {
     display: inline-block;
     color: #696363;
     margin-right: 30px;
 }
 
-.post-detail-area .comments .comment-tools div.tool-item i {
+.post-detail-area .comments .comment-tools div.tool-item i,
+.like i {
     color: #696363;
     font-size: 18px;
     margin-right: 3px;
