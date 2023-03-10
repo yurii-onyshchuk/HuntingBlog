@@ -1,9 +1,12 @@
+from PIL import Image
+
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from autoslug import AutoSlugField
+
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
-from PIL import Image
+
 from .managers import CustomUserManager
 
 username_validator = UnicodeUsernameValidator()

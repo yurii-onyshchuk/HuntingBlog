@@ -1,6 +1,10 @@
+from django.contrib.auth import get_user_model
+
 from rest_framework import serializers
-from accounts.models import User
+
 from blog.models import Post, Category, Tag, Comment, Subscriber
+
+User = get_user_model()
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

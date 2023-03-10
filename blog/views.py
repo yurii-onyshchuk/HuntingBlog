@@ -6,17 +6,16 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.db.models import F
-from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseNotAllowed
+from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
-from django.http import HttpResponseNotAllowed
 
-from .models import Post, Category, Tag, Comment, Subscriber
 from .forms import CommentForm
-from .services import click_like, _like
+from .models import Post, Category, Tag, Comment, Subscriber
+from .services import _like
 
 
 class PostList(ListView):

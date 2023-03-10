@@ -1,10 +1,12 @@
+from django.contrib.auth import get_user_model
 from rest_framework import generics
 from rest_framework import viewsets
 
-from accounts.models import User
 from blog.models import Post, Category, Tag, Comment, Subscriber
 from .serializers import UserSerializer, PostSerializer, CategorySerializer, TagSerializer, CommentSerializer, \
     SubscriberSerializer
+
+User = get_user_model()
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -47,12 +49,12 @@ class PostCommentsAPIView(generics.ListCreateAPIView):
     def get_queryset(self):
         return Comment.objects.filter(post__pk=self.kwargs['pk'])
 
+
 class CommentsAPIViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
 
 class SubscriberAPIViewSet(viewsets.ModelViewSet):
-
     queryset = Subscriber.objects.all()
     serializer_class = SubscriberSerializer
