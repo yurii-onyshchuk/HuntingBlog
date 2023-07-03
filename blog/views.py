@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
-from django.db.models import F
+from django.db.models import F, Q
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
@@ -61,7 +61,8 @@ class Search(PostList):
         return context
 
     def get_queryset(self):
-        return Post.objects.filter(title__icontains=self.request.GET.get('q'))
+        q = self.request.GET.get('q')
+        return Post.objects.filter(Q(title__icontains=q) | Q(content__icontains=q))
 
 
 class SinglePost(FormMixin, DetailView):
