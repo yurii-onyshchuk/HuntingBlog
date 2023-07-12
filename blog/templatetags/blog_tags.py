@@ -1,3 +1,5 @@
+import re
+
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
@@ -19,3 +21,8 @@ def like_button(context, obj, url):
     url = reverse(f'like_{url}')
     user = context['request'].user
     return {'obj': obj, 'url': url, 'user': user}
+
+
+@register.filter()
+def remove_iframe(content):
+    return re.sub("(<iframe.*?>)", "", content)

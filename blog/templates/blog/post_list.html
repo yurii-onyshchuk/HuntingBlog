@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load blog_tags %}
 
 {% block title %} {{ title }} :: {{ block.super }} {% endblock %}
 
@@ -49,7 +50,9 @@
                         </div>
                     </div>
                     <div class="big-post-text col-12 order-2">
-                        <div class="mb-1">{{ random_post.content | truncatewords_html:60 | safe }}</div>
+                        <div class="mb-1">
+                            <p>{{ random_post.content | remove_iframe | truncatewords_html:60 | safe }}</p>
+                        </div>
                         <div class="text-end">
                             <a href="{{ random_post.get_absolute_url }}">
                                 <button class="btn btn-main btn-sm">Читати повністю</button>
