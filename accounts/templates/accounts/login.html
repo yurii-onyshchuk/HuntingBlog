@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_filters %}
+{% load socialaccount %}
 
 {% block title %}{{ title }} :: {{ block.super }}{% endblock %}
 
@@ -19,5 +20,14 @@
         <div class="text-center mt-3">
             <a href="{% url 'password_reset' %}">Забули пароль?</a>
         </div>
+        <div class="text-center mt-3">
+            <button class="btn btn-outline-info">
+                <a href="{% provider_login_url 'google' %}?next=/">
+                    <i class="fab fa-google"></i>
+                    Вхід за допомогою Google
+                </a>
+            </button>
+        </div>
     </div>
+
 {% endblock %}
