@@ -58,6 +58,11 @@ a, a:hover {
     color: #40c4ff;
 }
 
+.btn-social {
+    color: black;
+    background-color: #ffffff;
+}
+
 .dropdown-item:active {
     background-color: #888888;
 }

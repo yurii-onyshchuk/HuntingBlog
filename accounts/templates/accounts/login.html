@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% load crispy_forms_filters %}
-{% load socialaccount %}
 
 {% block title %}{{ title }} :: {{ block.super }}{% endblock %}
 
 {% block content %}
     <div class="layout-form">
         <h1 class="page-title">{{ title }}</h1>
+            {% include 'accounts/inc/_social_auth.html' %}
+        <p class="text-center mt-3 mb-1">або</p>
         <form method="POST">
             {% csrf_token %}
             {{ form|crispy }}
@@ -20,20 +21,5 @@
         <div class="text-center mt-3">
             <a href="{% url 'password_reset' %}">Забули пароль?</a>
         </div>
-        <div class="text-center">
-            <button class="btn btn-outline-info  mt-3">
-                <a href="{% provider_login_url 'google' %}?next=/">
-                    <i class="fab fa-google"></i>
-                    За допомогою Google
-                </a>
-            </button>
-            <button class="btn btn-outline-info mt-3">
-                <a href="{% provider_login_url 'facebook' %}?next=/">
-                    <i class="fab fa-facebook"></i>
-                    За допомогою Facebook
-                </a>
-            </button>
-        </div>
     </div>
-
 {% endblock %}
