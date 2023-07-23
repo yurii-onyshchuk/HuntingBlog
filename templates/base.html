@@ -28,7 +28,11 @@
         <div class="row">
             {% if messages %}
                 <div class="col-12">
-                    {% include 'inc/_alert.html' %}
+                    <div class="alert-section">
+                        {% for message in messages %}
+                            {% include 'inc/_alert.html' %}
+                        {% endfor %}
+                    </div>
                 </div>
             {% endif %}
             {% block sidebar %}
