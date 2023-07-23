@@ -141,8 +141,8 @@ SOCIALACCOUNT_PROVIDERS = {
         'EXCHANGE_TOKEN': True,
         'LOCALE_FUNC': 'path.to.callable',
         'VERIFIED_EMAIL': False,
-        'VERSION': 'v13.0',
-        'GRAPH_API_URL': 'https://graph.facebook.com/v13.0',
+        'VERSION': 'v17.0',
+        'GRAPH_API_URL': 'https://graph.facebook.com/v17.0',
     }
 }
 
