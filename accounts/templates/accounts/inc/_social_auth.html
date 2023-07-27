@@ -1,7 +1,7 @@
 {% load socialaccount %}
 
 <div class="social-auth mt-3">
-    <a class="btn btn-block btn-social btn-google ba w-100 text-center my-2"
+    <a class="btn btn-block btn-social btn-google w-100 text-center my-2"
        href="{% provider_login_url 'google' %}">
         <div aria-hidden="true" class="a44d4350 _2a3b75a1 _509a57b4 e5a9206f">
             <svg width="25" height="25" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" class="MfSWZ05"
@@ -41,5 +41,12 @@
             </svg>
         </div>
         Продовжити через Facebook
+    </a>
+    <a class="btn btn-block btn-social btn-linkedin w-100 text-center my-2"
+       href="{% provider_login_url 'linkedin_oauth2' %}">
+        <div aria-hidden="true" class="social-img">
+            <span class="fa fa-linkedin"></span>
+        </div>
+        Продовжити через Linkedin
     </a>
 </div>
