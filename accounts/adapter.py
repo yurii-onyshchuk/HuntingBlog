@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.account.utils import perform_login
@@ -16,3 +18,6 @@ class MySocialAccountAdapter(DefaultSocialAccountAdapter):
             perform_login(request, UserObj, 'none')
         except user_model.DoesNotExist:
             pass
+
+    def get_connect_redirect_url(self, request, socialaccount):
+        return reverse(settings.LOGIN_REDIRECT_URL)
