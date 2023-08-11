@@ -113,6 +113,7 @@ AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend',
 SITE_ID = 2
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 
@@ -145,7 +146,20 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERIFIED_EMAIL': False,
         'VERSION': 'v17.0',
         'GRAPH_API_URL': 'https://graph.facebook.com/v17.0',
-    }
+    },
+    'linkedin_oauth2': {
+        'SCOPE': [
+            'r_liteprofile',
+            'r_emailaddress',
+        ],
+        'PROFILE_FIELDS': [
+            'id',
+            'firstName',
+            'lastName',
+            'emailAddress',
+            'profilePicture(displayImage~:playableStreams)'
+        ]
+    },
 }
 
 LOGIN_URL = 'login'
