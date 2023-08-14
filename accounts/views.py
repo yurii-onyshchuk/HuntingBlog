@@ -14,10 +14,10 @@ from .utils import RedirectAuthenticatedUserMixin
 User = get_user_model()
 
 
-class UserSignUp(RedirectAuthenticatedUserMixin, CreateView):
+class SignUpView(RedirectAuthenticatedUserMixin, CreateView):
     extra_context = {'title': 'Реєстрація'}
     template_name = 'accounts/signup.html'
-    form_class = forms.UserSingUpForm
+    form_class = forms.SignUpForm
     redirect_authenticated_user_url = reverse_lazy('home')
 
     def form_valid(self, form):
@@ -29,10 +29,10 @@ class UserSignUp(RedirectAuthenticatedUserMixin, CreateView):
 
     def form_invalid(self, form):
         messages.error(self.request, 'Помилка реєстрації!')
-        return super(UserSignUp, self).form_invalid(form)
+        return super(SignUpView, self).form_invalid(form)
 
 
-class UserAuthentication(LoginView):
+class CustomLoginView(LoginView):
     extra_context = {'title': 'Вхід'}
     template_name = 'accounts/login.html'
     form_class = AuthenticationForm
@@ -82,7 +82,7 @@ class PersonalSafetyView(LoginRequiredMixin, TemplateView):
     template_name = 'accounts/personal_cabinet/personal_safety.html'
 
 
-class DeleteAccount(LoginRequiredMixin, DeleteView):
+class AccountDeleteView(LoginRequiredMixin, DeleteView):
     extra_context = {'title': 'Видалення облікового запису'}
 
     def get_queryset(self):
