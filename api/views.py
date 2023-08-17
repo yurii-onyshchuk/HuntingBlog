@@ -3,15 +3,9 @@ from rest_framework import generics
 from rest_framework import viewsets
 
 from blog.models import Post, Category, Tag, Comment, Subscriber
-from .serializers import UserSerializer, PostSerializer, CategorySerializer, TagSerializer, CommentSerializer, \
-    SubscriberSerializer
+from .serializers import PostSerializer, CategorySerializer, TagSerializer, CommentSerializer, SubscriberSerializer
 
 User = get_user_model()
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 
 class PostAPIViewSet(viewsets.ModelViewSet):

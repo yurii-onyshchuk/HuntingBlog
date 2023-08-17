@@ -7,12 +7,6 @@ from blog.models import Post, Category, Tag, Comment, Subscriber
 User = get_user_model()
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['email', 'first_name', 'last_name', 'username', 'slug', 'photo']
-
-
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category

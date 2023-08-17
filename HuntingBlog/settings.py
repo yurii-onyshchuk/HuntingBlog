@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.github',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'ckeditor',
     'crispy_forms',
     'crispy_bootstrap5',
     'debug_toolbar',
-    'rest_framework',
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
 ]
@@ -271,5 +273,12 @@ EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_USE_TLS = str(os.getenv('EMAIL_USE_TLS')) == 'True'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }

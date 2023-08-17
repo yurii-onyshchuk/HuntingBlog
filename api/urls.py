@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from rest_framework.routers import DefaultRouter
 
@@ -21,7 +21,6 @@ from . import views
 
 router = DefaultRouter()
 
-router.register('users', views.UserViewSet)
 router.register('posts', views.PostAPIViewSet, basename='posts')
 router.register('categories', views.CategoryAPIViewSet, basename='categories')
 router.register('tags', views.TagAPIViewSet, basename='tags')
@@ -29,9 +28,13 @@ router.register('comments', views.CommentsAPIViewSet, basename='comments')
 router.register('subscribers', views.SubscriberAPIViewSet, basename='subscribers')
 
 urlpatterns = [
-    path('v1/', include(router.urls)),
-    path('v1/auth/', include('rest_framework.urls')),
-    path('v1/category/<int:pk>/', views.PostByCategoryAPIView.as_view()),
-    path('v1/tag/<int:pk>/', views.PostByTagAPIView.as_view()),
-    path('v1/posts/<int:pk>/comments', views.PostCommentsAPIView.as_view()),
+    path('', include(router.urls)),
+    path('category/<int:pk>/', views.PostByCategoryAPIView.as_view()),
+    path('tag/<int:pk>/', views.PostByTagAPIView.as_view()),
+    path('posts/<int:pk>/comments', views.PostCommentsAPIView.as_view()),
+    # Session-based authentication
+    path('drf-auth/', include('rest_framework.urls')),
+    # Token-based authentication
+    path('auth/', include('djoser.urls')),
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]
