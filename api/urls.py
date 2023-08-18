@@ -24,16 +24,17 @@ router = DefaultRouter()
 router.register('posts', views.PostAPIViewSet, basename='posts')
 router.register('categories', views.CategoryAPIViewSet, basename='categories')
 router.register('tags', views.TagAPIViewSet, basename='tags')
-router.register('comments', views.CommentsAPIViewSet, basename='comments')
 router.register('subscribers', views.SubscriberAPIViewSet, basename='subscribers')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('category/<int:pk>/', views.PostByCategoryAPIView.as_view()),
-    path('tag/<int:pk>/', views.PostByTagAPIView.as_view()),
-    path('posts/<int:pk>/comments', views.PostCommentsAPIView.as_view()),
+    path('category/<str:slug>/', views.PostByCategoryAPIView.as_view(), name='posts_by_category'),
+    path('tag/<str:slug>/', views.PostByTagAPIView.as_view(), name='posts_by_tag'),
+    path('post/<str:slug>/comments/', views.PostCommentsAPIView.as_view(), name='post_comments'),
+
     # Session-based authentication
     path('drf-auth/', include('rest_framework.urls')),
+
     # Token-based authentication
     path('auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),

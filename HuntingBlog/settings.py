@@ -274,7 +274,7 @@ EMAIL_USE_TLS = str(os.getenv('EMAIL_USE_TLS')) == 'True'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'api.permissions.IsAdminOrReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
