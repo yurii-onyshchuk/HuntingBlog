@@ -164,9 +164,9 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
-LOGIN_URL = 'account_login'
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'account_login'
+LOGOUT_REDIRECT_URL = 'login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
