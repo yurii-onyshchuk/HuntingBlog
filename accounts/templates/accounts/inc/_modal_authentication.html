@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body text-center">
                 <p>{{ massage }}</p>
-                <a class="btn btn-main" href="{% url 'login' %}?next={{ request.path }}{{ anchor }}">Авторизуватися</a>
+                <a class="btn btn-main" href="{% url 'account_login' %}?next={{ request.path }}{{ anchor }}">Авторизуватися</a>
             </div>
         </div>
     </div>

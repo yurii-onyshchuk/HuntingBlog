@@ -65,7 +65,7 @@
                 <div class="my-4">
                     <h6>Авторизуйтеся, щоб залишити коментар</h6>
                     <a class="btn btn-main"
-                       href="{% url 'login' %}?next={{ request.path }}#comments">Авторизуватися</a>
+                       href="{% url 'account_login' %}?next={{ request.path }}#comments">Авторизуватися</a>
                     {% include 'accounts/inc/_modal_authentication.html' with massage='Авторизуйтеся, щоб відреагувати в коментарях' anchor='#comments' %}
                 </div>
             {% endif %}
