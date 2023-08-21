@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, get_user_model
 from django.contrib.auth.decorators import login_required
@@ -90,4 +91,4 @@ class AccountDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         messages.success(self.request, 'Акаунт успішно видалено!')
-        return reverse_lazy('login')
+        return reverse_lazy(settings.LOGIN_URL)
