@@ -25,10 +25,18 @@ body {
 }
 
 a, a:hover {
-    color: #061e37;
+    color: #000000;
     font-style: normal;
     text-decoration: none;
     transition: all 0.25s;
+}
+
+a:hover {
+    color: #646464;
+}
+
+.btn:active {
+    transform: scale(0.98);
 }
 
 .btn-main {
@@ -74,9 +82,13 @@ a, a:hover {
     box-shadow: 0 0 7px 5px rgb(220, 230, 255);
 }
 
-.btn-social:active{
+.btn-social:active {
     background-color: rgba(220, 230, 255, 0.5);
-    scale: 0.99;
+    transform: scale(0.99);
+}
+
+.btn-social:active svg {
+    margin-bottom: 2px;
 }
 
 .dropdown-item:active {
@@ -395,6 +407,15 @@ header nav.navbar .menu ul.navbar-nav li a:hover {
 /*--------------------------------------------------------------
 # Personal cabinet
 --------------------------------------------------------------*/
+.personal-cabinet .card:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.personal-cabinet .card:active {
+    transform: scale(0.99);
+    transition: all 0.2s;
+}
+
 .personal-info img.user-photo {
     height: 100px;
     width: 100px;
