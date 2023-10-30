@@ -10,6 +10,22 @@ from .models import Post, Subscriber
 
 @receiver(post_save, sender=Post)
 def notification(sender, instance, created, **kwargs):
+    """
+    Send email notifications to subscribers when a new post is created, if the post is set to notify subscribers.
+
+    Args:
+        sender: The sender of the signal.
+        instance (Post): The instance of the Post model that was saved.
+        created (bool): A boolean indicating if the instance was just created.
+        kwargs: Additional keyword arguments.
+
+    When a new post is created and the `notify_subscribers` field of the post is set to `True`, this signal handler sends
+    email notifications to all subscribers. The email contains a subject and an HTML message rendered from a template.
+
+    The email is sent from the email address specified in the environment variable 'EMAIL_HOST_USER' to all subscribers
+    listed in the database. The context for rendering the HTML message includes the admin email address and the new post.
+    """
+
     if created and instance.notify_subscribers:
         subscribers = Subscriber.objects.all()
         subject = 'Новий допис у нашому блозі'

@@ -15,10 +15,12 @@ from django.views.generic.edit import FormMixin
 
 from .forms import CommentForm
 from .models import Post, Category, Tag, Comment, Subscriber
-from .services import _like
+from .services import click_like
 
 
 class PostList(ListView):
+    """List view for blog posts."""
+
     model = Post
     paginate_by = 12
     allow_empty = False
@@ -32,6 +34,8 @@ class PostList(ListView):
 
 
 class PostsByCategory(PostList):
+    """List view for blog posts filtered by category."""
+
     def get_queryset(self):
         return Post.objects.filter(category__slug=self.kwargs['slug'])
 
@@ -42,6 +46,8 @@ class PostsByCategory(PostList):
 
 
 class PostsByTag(PostList):
+    """List view for blog posts filtered by tag."""
+
     def get_queryset(self):
         return Post.objects.filter(tags__slug=self.kwargs['slug'])
 
@@ -52,6 +58,8 @@ class PostsByTag(PostList):
 
 
 class Search(PostList):
+    """List view for blog posts filtered by search query."""
+
     allow_empty = True
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -66,22 +74,36 @@ class Search(PostList):
 
 
 class SinglePost(FormMixin, DetailView):
+    """Detail view for a single blog post."""
+
     model = Post
     form_class = CommentForm
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        """Get the context data for the single blog post.
+
+        This method is extended to update a post's view count and
+        pass post comments to the context
+        """
+
         context = super().get_context_data()
+        context['title'] = self.object.title
+
         self.object.views = F('views') + 1
         self.object.save()
         self.object.refresh_from_db()
+
         _list = Comment.objects.filter(post__slug=self.kwargs.get('slug'), parent__isnull=True)
         paginator = Paginator(_list, 10)
         page = self.request.GET.get('page')
         context['comments'] = paginator.get_page(page)
-        context['title'] = self.object.title
+
         return context
 
     def post(self, request, *args, **kwargs):
+        """Handle the HTTP POST request to add a comment to the blog post.
+        Redirect to the current blog post with the comment anchor.
+        """
         form = self.get_form()
         post = self.get_object()
         if form.is_valid():
@@ -93,25 +115,30 @@ class SinglePost(FormMixin, DetailView):
         return redirect(post.get_absolute_url() + '#comments')
 
     def get_success_url(self):
+        """Get the URL to redirect to after successfully submitting a comment."""
         return reverse_lazy('post', kwargs={'slug': self.kwargs['slug']})
 
 
 def contact(request):
+    """View for page with a contact information."""
     context = {'title': 'Контактна інформація'}
     return render(request, 'blog/contacts.html', context)
 
 
 @login_required
 def like_post(request):
-    return _like(request, Post)
+    """View for liking/unliking a post."""
+    return click_like(request, Post)
 
 
 @login_required
 def like_comment(request):
-    return _like(request, Comment)
+    """View for liking/unliking a comment."""
+    return click_like(request, Comment)
 
 
 def subscribe(request):
+    """View function for subscribing to a newsletter."""
     if request.method == 'POST':
         email = request.POST.get('subscribe-email', None)
         if email:

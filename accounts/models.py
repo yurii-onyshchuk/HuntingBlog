@@ -13,6 +13,12 @@ username_validator = UnicodeUsernameValidator()
 
 
 class User(AbstractUser):
+    """Custom user model with email and additional fields.
+
+    This user model extends the AbstractUser and replaces the username
+    with email as the unique identifier.
+    """
+
     username = models.CharField(_("username"), max_length=150, unique=True, validators=[username_validator],
                                 error_messages={"unique": _("A user with that username already exists."), })
     slug = AutoSlugField(populate_from='username', verbose_name='Slug', unique=True)
@@ -35,6 +41,7 @@ class User(AbstractUser):
             return self.email
 
     def save_thumbnail(self):
+        """Resizes and saves the user's profile photo as a thumbnail."""
         super().save()
         photo = Image.open(self.photo.path)
         if photo.height > 200 or photo.width > 200:

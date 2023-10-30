@@ -16,6 +16,8 @@ User = get_user_model()
 
 
 class SignUpView(RedirectAuthenticatedUserMixin, CreateView):
+    """View for handling the user registration."""
+
     extra_context = {'title': 'Реєстрація'}
     template_name = 'accounts/signup.html'
     form_class = forms.SignUpForm
@@ -34,6 +36,8 @@ class SignUpView(RedirectAuthenticatedUserMixin, CreateView):
 
 
 class CustomLoginView(LoginView):
+    """View for handling the user login process."""
+
     extra_context = {'title': 'Вхід'}
     template_name = 'accounts/login.html'
     form_class = AuthenticationForm
@@ -42,12 +46,20 @@ class CustomLoginView(LoginView):
 
 
 class PersonalCabinet(LoginRequiredMixin, TemplateView):
+    """View for the user's personal cabinet.
+
+    This view displays the user's personal cabinet with information
+    about orders and personal data.
+    """
+
     extra_context = {'title': 'Особистий кабінет',
                      'subtitle': 'Керуйте своїми особистими даними та безпекою акаунту'}
     template_name = 'accounts/personal_cabinet/personal_cabinet.html'
 
 
 class PersonalInfoUpdateView(LoginRequiredMixin, UpdateView):
+    """View for updating the user's personal information."""
+
     extra_context = {'title': 'Особисті дані',
                      'subtitle': 'Керуйте своїми особистими та контактними даними'}
     template_name = 'accounts/personal_cabinet/personal_info.html'
@@ -63,6 +75,7 @@ class PersonalInfoUpdateView(LoginRequiredMixin, UpdateView):
 
 @login_required
 def user_avatar_change(request):
+    """View for changing the user's avatar photo."""
     if request.method == 'POST':
         user = User.objects.get(pk=request.user.pk)
         user.photo = request.FILES['user_photo']
@@ -72,18 +85,23 @@ def user_avatar_change(request):
 
 @login_required
 def user_avatar_delete(request):
+    """ View for deleting the user's avatar photo."""
     if request.method == 'POST':
         User.objects.get(pk=request.user.pk).photo.delete(save=True)
     return redirect('personal_info', slug=request.user.slug)
 
 
 class PersonalSafetyView(LoginRequiredMixin, TemplateView):
+    """View for account safety settings."""
+
     extra_context = {'title': 'Безпека облікового запису',
                      'subtitle': 'Змінити пароль або видалити обліковий запис'}
     template_name = 'accounts/personal_cabinet/personal_safety.html'
 
 
 class AccountDeleteView(LoginRequiredMixin, DeleteView):
+    """View for deleting a user's account."""
+
     extra_context = {'title': 'Видалення облікового запису'}
 
     def get_queryset(self):

@@ -6,6 +6,12 @@ User = get_user_model()
 
 
 class SignUpForm(UserCreationForm):
+    """Form for user registration.
+
+    Customizes the UserCreationForm to remove help text and
+    add the ability to create a user with email, phone number, and password.
+    """
+
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs.update({'autofocus': False})
@@ -27,12 +33,23 @@ class SignUpForm(UserCreationForm):
 
 
 class CustomSetPasswordForm(SetPasswordForm):
+    """Custom form for setting a new password.
+
+    Removes help text for setting a new password.
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['new_password1'].help_text = ''
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
+    """Custom form for changing a password.
+
+    Removes help text for setting a new password and
+    excludes the old password field if the user has no usable password.
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['new_password1'].help_text = ''
@@ -41,6 +58,8 @@ class CustomPasswordChangeForm(PasswordChangeForm):
 
 
 class UserForm(forms.ModelForm):
+    """Form for editing user profile information."""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['email'].widget.attrs.update({'autofocus': False})

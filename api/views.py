@@ -11,30 +11,40 @@ User = get_user_model()
 
 
 class PostAPIViewSet(viewsets.ModelViewSet):
+    """API endpoint for Posts."""
+
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     lookup_field = 'slug'
 
 
 class CategoryAPIViewSet(viewsets.ModelViewSet):
+    """API endpoint for Categories."""
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'slug'
 
 
 class TagAPIViewSet(viewsets.ModelViewSet):
+    """API endpoint for Tags."""
+
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     lookup_field = 'slug'
 
 
 class SubscriberAPIViewSet(viewsets.ModelViewSet):
+    """API endpoint for Subscribers."""
+
     queryset = Subscriber.objects.all()
     serializer_class = SubscriberSerializer
     permission_classes = [IsAdminUser | SubscribePermission, ]
 
 
 class PostByCategoryAPIView(generics.ListAPIView):
+    """API endpoint for retrieving Posts by Category."""
+
     serializer_class = PostSerializer
 
     def get_queryset(self):
@@ -42,6 +52,8 @@ class PostByCategoryAPIView(generics.ListAPIView):
 
 
 class PostByTagAPIView(generics.ListAPIView):
+    """API endpoint for retrieving Posts by Tag."""
+
     serializer_class = PostSerializer
 
     def get_queryset(self):
@@ -49,6 +61,8 @@ class PostByTagAPIView(generics.ListAPIView):
 
 
 class PostCommentsAPIView(generics.ListCreateAPIView):
+    """API endpoint for retrieving and creating Comments for a Post."""
+
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, ]
 

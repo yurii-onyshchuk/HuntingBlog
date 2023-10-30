@@ -9,6 +9,8 @@ User = get_user_model()
 
 
 class Post(models.Model):
+    """Post representation model for blog."""
+
     title = models.CharField(max_length=250, verbose_name='Заголовок')
     slug = models.SlugField(max_length=100, verbose_name='URL', unique=True)
     category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts', verbose_name='Категорія')
@@ -25,13 +27,16 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
+        """Returns the absolute URL for the blog post."""
         return reverse('post', kwargs={'slug': self.slug})
 
     def get_comment_count(self):
+        """Returns the count of top-level comments on the blog post."""
         return Comment.objects.filter(post=self, parent__isnull=True).count()
 
     @property
     def total_like(self):
+        """Returns the count of likes on the blog post."""
         return self.likes.count()
 
     class Meta:
@@ -41,6 +46,8 @@ class Post(models.Model):
 
 
 class Category(models.Model):
+    """Category representation model for blog posts."""
+
     title = models.CharField(max_length=250, verbose_name='Назва категорії')
     slug = models.SlugField(max_length=100, verbose_name='URL', unique=True)
 
@@ -48,6 +55,7 @@ class Category(models.Model):
         return self.title
 
     def get_absolute_url(self):
+        """Returns the absolute URL for the blog category."""
         return reverse('category', kwargs={'slug': self.slug})
 
     class Meta:
@@ -57,6 +65,8 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
+    """Tag representation model for blog posts."""
+
     title = models.CharField(max_length=50, verbose_name='Назва тегу')
     slug = models.SlugField(max_length=100, verbose_name='URL', unique=True)
 
@@ -64,6 +74,7 @@ class Tag(models.Model):
         return self.title
 
     def get_absolute_url(self):
+        """Returns the absolute URL for the blog tag."""
         return reverse('tag', kwargs={'slug': self.slug})
 
     class Meta:
@@ -73,6 +84,8 @@ class Tag(models.Model):
 
 
 class Comment(models.Model):
+    """Comment representation model for blog posts."""
+
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_comments', verbose_name='Пост')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True,
                              related_name='user_comments', verbose_name='Користувач')
@@ -91,6 +104,7 @@ class Comment(models.Model):
         ordering = ['-created_at']
 
     def get_user(self):
+        """Returns the user who posted the comment."""
         if self.user:
             return self.user
         else:
@@ -98,20 +112,25 @@ class Comment(models.Model):
 
     @property
     def children(self):
+        """Returns the replies to the comment in reverse order."""
         return Comment.objects.filter(parent=self).reverse()
 
     @property
     def is_parent(self):
+        """Checks if the comment is a top-level (parent) comment."""
         if self.parent is None:
             return True
         return False
 
     @property
     def total_like(self):
+        """Returns the count of likes on the post comment."""
         return self.likes.count()
 
 
 class Like(models.Model):
+    """Model for user likes on various content objects: blog's posts, post's comment."""
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='likes', on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
@@ -119,6 +138,8 @@ class Like(models.Model):
 
 
 class Subscriber(models.Model):
+    """Model for email subscribers to a newsletter or mailing list."""
+
     email = models.EmailField(unique=True, verbose_name='Електронна адреса')
     subscribed_at = models.DateTimeField(auto_now_add=True, verbose_name='Час підписки')
 
