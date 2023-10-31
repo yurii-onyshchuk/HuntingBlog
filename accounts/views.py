@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView
 
 from . import forms
-from .utils import RedirectAuthenticatedUserMixin
+from .mixins import RedirectAuthenticatedUserMixin
 
 User = get_user_model()
 

@@ -15,7 +15,7 @@ from django.views.generic.edit import FormMixin
 
 from .forms import CommentForm
 from .models import Post, Category, Tag, Comment, Subscriber
-from .services import click_like
+from .services.likes_system import click_like
 
 
 class PostList(ListView):

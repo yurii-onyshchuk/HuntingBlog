@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
-from .models import Like
+from blog.models import Like
 
 User = get_user_model()
 

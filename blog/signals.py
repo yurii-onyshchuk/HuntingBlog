@@ -10,8 +10,7 @@ from .models import Post, Subscriber
 
 @receiver(post_save, sender=Post)
 def notification(sender, instance, created, **kwargs):
-    """
-    Send email notifications to subscribers when a new post is created, if the post is set to notify subscribers.
+    """Send email notifications to subscribers when a new post is created, if the post is set to notify subscribers.
 
     Args:
         sender: The sender of the signal.
